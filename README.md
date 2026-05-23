@@ -9,17 +9,28 @@
 
 ## 1. 环境配置
 
-推荐使用已经安装 OpenCV 的 `ml` 虚拟环境：
+建议使用 Python 3.10 或以上版本。可以任选一种方式创建环境，只要最终能安装 `requirements.txt` 中的依赖即可。
+
+方式一：使用 `venv`：
 
 ```bash
-conda activate ml
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-也可以不进入环境，直接用：
+方式二：使用 conda：
 
 ```bash
-conda run -n ml python main.py --detector opencv
+conda create -n face-detection python=3.10
+conda activate face-detection
+pip install -r requirements.txt
+```
+
+如果你已经有可用的 Python 环境，也可以直接在该环境中安装依赖：
+
+```bash
+pip install -r requirements.txt
 ```
 
 ## 2. 实时演示
