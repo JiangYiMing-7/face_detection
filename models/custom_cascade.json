@@ -1,0 +1,3037 @@
+{
+  "type": "teaching_viola_jones_cascade",
+  "window_size": 24,
+  "feature_count": 20000,
+  "stages": [
+    {
+      "threshold": -1.7174533281060729,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 9,
+            "height": 2
+          },
+          "threshold": -51.0,
+          "polarity": 1,
+          "alpha": 0.76171042760526,
+          "error": 0.17895833333336686
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 20,
+            "width": 11,
+            "height": 4
+          },
+          "threshold": 154.0,
+          "polarity": -1,
+          "alpha": 0.5093471330297953,
+          "error": 0.26528181969894193
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 0,
+            "width": 22,
+            "height": 4
+          },
+          "threshold": -157.0,
+          "polarity": 1,
+          "alpha": 0.4122790883051376,
+          "error": 0.30479694308313626
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 21,
+            "y": 2,
+            "width": 3,
+            "height": 7
+          },
+          "threshold": 1061.0,
+          "polarity": 1,
+          "alpha": 0.32894915750140785,
+          "error": 0.34121188383292533
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 4,
+            "width": 14,
+            "height": 6
+          },
+          "threshold": -486.1398620605469,
+          "polarity": 1,
+          "alpha": 0.36306583666728787,
+          "error": 0.3260441784202903
+        }
+      ]
+    },
+    {
+      "threshold": -1.91341988585011,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 11,
+            "height": 2
+          },
+          "threshold": -73.0,
+          "polarity": 1,
+          "alpha": 0.7259532300849443,
+          "error": 0.18970833333336587
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 20,
+            "width": 11,
+            "height": 4
+          },
+          "threshold": 182.0,
+          "polarity": -1,
+          "alpha": 0.4992543123726202,
+          "error": 0.2692347445653746
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 5,
+            "y": 0,
+            "width": 16,
+            "height": 4
+          },
+          "threshold": -95.11994934082031,
+          "polarity": 1,
+          "alpha": 0.4067042779221517,
+          "error": 0.3071646291210442
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 10,
+            "y": 6,
+            "width": 3,
+            "height": 5
+          },
+          "threshold": 199.0,
+          "polarity": -1,
+          "alpha": 0.3288727610431136,
+          "error": 0.3412462304257714
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 2,
+            "y": 8,
+            "width": 12,
+            "height": 4
+          },
+          "threshold": -104.0,
+          "polarity": 1,
+          "alpha": 0.31897514455402876,
+          "error": 0.34571002619726676
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 1,
+            "width": 6,
+            "height": 14
+          },
+          "threshold": 136.0,
+          "polarity": -1,
+          "alpha": 0.27713989348796775,
+          "error": 0.3648720369069321
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 11,
+            "y": 8,
+            "width": 5,
+            "height": 12
+          },
+          "threshold": -626.0,
+          "polarity": -1,
+          "alpha": 0.23611035050130974,
+          "error": 0.3840907683238145
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 18
+          },
+          "threshold": -341.01995849609375,
+          "polarity": 1,
+          "alpha": 0.2462010333098293,
+          "error": 0.3793278656254542
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 13,
+            "y": 5,
+            "width": 10,
+            "height": 10
+          },
+          "threshold": -117.0,
+          "polarity": 1,
+          "alpha": 0.2163178708623444,
+          "error": 0.3934971167321678
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 6,
+            "y": 11,
+            "width": 12,
+            "height": 4
+          },
+          "threshold": 1777.0,
+          "polarity": 1,
+          "alpha": 0.220492976525336,
+          "error": 0.3915060614707525
+        }
+      ]
+    },
+    {
+      "threshold": -1.9779088072210818,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 9,
+            "height": 2
+          },
+          "threshold": -68.05998992919922,
+          "polarity": 1,
+          "alpha": 0.6766440323257628,
+          "error": 0.20533333333336518
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 20,
+            "width": 11,
+            "height": 4
+          },
+          "threshold": 182.0,
+          "polarity": -1,
+          "alpha": 0.4632247962345446,
+          "error": 0.28364557003399593
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 0,
+            "width": 22,
+            "height": 4
+          },
+          "threshold": -157.44000244140625,
+          "polarity": 1,
+          "alpha": 0.3761779175534826,
+          "error": 0.3203081929767419
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 1,
+            "width": 14,
+            "height": 10
+          },
+          "threshold": 444.0,
+          "polarity": -1,
+          "alpha": 0.3026616009056742,
+          "error": 0.35312677551179883
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 11,
+            "y": 5,
+            "width": 2,
+            "height": 12
+          },
+          "threshold": -626.0,
+          "polarity": -1,
+          "alpha": 0.33079141448736044,
+          "error": 0.34038414065739897
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 2,
+            "y": 8,
+            "width": 12,
+            "height": 4
+          },
+          "threshold": -150.0,
+          "polarity": 1,
+          "alpha": 0.2838592784856582,
+          "error": 0.36176342240567316
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 16
+          },
+          "threshold": -163.0,
+          "polarity": 1,
+          "alpha": 0.23737045472587362,
+          "error": 0.3834947495077604
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 6,
+            "width": 16,
+            "height": 8
+          },
+          "threshold": -285.3599853515625,
+          "polarity": 1,
+          "alpha": 0.22484041133140517,
+          "error": 0.38943665600179367
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 5,
+            "y": 9,
+            "width": 12,
+            "height": 5
+          },
+          "threshold": 958.760009765625,
+          "polarity": 1,
+          "alpha": 0.2287097305592161,
+          "error": 0.38759817765751037
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 20,
+            "y": 4,
+            "width": 4,
+            "height": 7
+          },
+          "threshold": 109.0,
+          "polarity": -1,
+          "alpha": 0.23234691921283884,
+          "error": 0.3858729073286729
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 14,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          },
+          "threshold": 48.0,
+          "polarity": -1,
+          "alpha": 0.19037755204264079,
+          "error": 0.40594478805940226
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 22,
+            "width": 16,
+            "height": 2
+          },
+          "threshold": -30.0,
+          "polarity": 1,
+          "alpha": 0.1868338135093609,
+          "error": 0.4076550917434419
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 9,
+            "width": 2,
+            "height": 11
+          },
+          "threshold": -152.0,
+          "polarity": -1,
+          "alpha": 0.20505146012783326,
+          "error": 0.39888744306180063
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 8,
+            "width": 2,
+            "height": 4
+          },
+          "threshold": 10.0,
+          "polarity": -1,
+          "alpha": 0.20730275016830121,
+          "error": 0.39780832440156577
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 0,
+            "y": 1,
+            "width": 21,
+            "height": 2
+          },
+          "threshold": 50.0,
+          "polarity": -1,
+          "alpha": 0.18403039635518426,
+          "error": 0.40900968539003113
+        }
+      ]
+    },
+    {
+      "threshold": -2.0644220652371374,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 9,
+            "height": 2
+          },
+          "threshold": -70.51998138427734,
+          "polarity": 1,
+          "alpha": 0.5947920334368297,
+          "error": 0.23333333333336498
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 9,
+            "y": 20,
+            "width": 5,
+            "height": 4
+          },
+          "threshold": 114.0,
+          "polarity": -1,
+          "alpha": 0.427166160543283,
+          "error": 0.2985248447205008
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 3,
+            "y": 0,
+            "width": 19,
+            "height": 4
+          },
+          "threshold": -212.0,
+          "polarity": 1,
+          "alpha": 0.3749680479035443,
+          "error": 0.3208352253877581
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 5,
+            "y": 8,
+            "width": 8,
+            "height": 4
+          },
+          "threshold": -38.0,
+          "polarity": 1,
+          "alpha": 0.29367326887860473,
+          "error": 0.35724391309474635
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 11,
+            "y": 8,
+            "width": 5,
+            "height": 12
+          },
+          "threshold": -583.0,
+          "polarity": -1,
+          "alpha": 0.2871877480375284,
+          "error": 0.36022781620376265
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 0,
+            "width": 6,
+            "height": 20
+          },
+          "threshold": 339.0,
+          "polarity": -1,
+          "alpha": 0.3041293362209542,
+          "error": 0.3524565205317264
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 7,
+            "width": 4,
+            "height": 7
+          },
+          "threshold": -53.0,
+          "polarity": 1,
+          "alpha": 0.21285375459284048,
+          "error": 0.39515180320233323
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 0,
+            "y": 2,
+            "width": 21,
+            "height": 4
+          },
+          "threshold": 2899.52001953125,
+          "polarity": 1,
+          "alpha": 0.20374775630562894,
+          "error": 0.39951280200753186
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 8,
+            "width": 2,
+            "height": 4
+          },
+          "threshold": 7.0,
+          "polarity": -1,
+          "alpha": 0.18240110690511346,
+          "error": 0.40979758448112463
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 11,
+            "y": 11,
+            "width": 4,
+            "height": 6
+          },
+          "threshold": 439.5199890136719,
+          "polarity": 1,
+          "alpha": 0.18913383285844299,
+          "error": 0.4065447828826209
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 10,
+            "y": 9,
+            "width": 10,
+            "height": 2
+          },
+          "threshold": 40.0,
+          "polarity": -1,
+          "alpha": 0.20385113124279589,
+          "error": 0.3994632032630171
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 6,
+            "width": 10,
+            "height": 10
+          },
+          "threshold": -139.23989868164062,
+          "polarity": 1,
+          "alpha": 0.18093127325539834,
+          "error": 0.41050877084388715
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 2,
+            "y": 22,
+            "width": 20,
+            "height": 2
+          },
+          "threshold": -58.0,
+          "polarity": 1,
+          "alpha": 0.1707065926108853,
+          "error": 0.4154662383729625
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 6,
+            "width": 13,
+            "height": 10
+          },
+          "threshold": -2630.0,
+          "polarity": -1,
+          "alpha": 0.16621973474549967,
+          "error": 0.4176471813086692
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 4,
+            "y": 0,
+            "width": 15,
+            "height": 2
+          },
+          "threshold": -217.11997985839844,
+          "polarity": 1,
+          "alpha": 0.1838551500464196,
+          "error": 0.40909440943394637
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": -39.0,
+          "polarity": -1,
+          "alpha": 0.1666795466066838,
+          "error": 0.4174235292077159
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 15,
+            "y": 10,
+            "width": 8,
+            "height": 14
+          },
+          "threshold": -570.0,
+          "polarity": 1,
+          "alpha": 0.17970946778833252,
+          "error": 0.41110023252673034
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 15,
+            "y": 2,
+            "width": 4,
+            "height": 12
+          },
+          "threshold": 42.0,
+          "polarity": -1,
+          "alpha": 0.1734259847480796,
+          "error": 0.4141460178622774
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 19,
+            "y": 16,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": 0.0,
+          "polarity": -1,
+          "alpha": 0.16304294198187858,
+          "error": 0.41919329153655593
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 1,
+            "y": 7,
+            "width": 2,
+            "height": 17
+          },
+          "threshold": 27.0,
+          "polarity": -1,
+          "alpha": 0.15315777482964435,
+          "error": 0.424014325219089
+        }
+      ]
+    },
+    {
+      "threshold": -1.8097793587943103,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 11,
+            "height": 2
+          },
+          "threshold": -85.27999114990234,
+          "polarity": 1,
+          "alpha": 0.5475299435317873,
+          "error": 0.25066666666669807
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 20,
+            "width": 11,
+            "height": 4
+          },
+          "threshold": 272.0,
+          "polarity": -1,
+          "alpha": 0.4281645142381951,
+          "error": 0.2981068869728186
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 2,
+            "y": 0,
+            "width": 15,
+            "height": 2
+          },
+          "threshold": -12.299980163574219,
+          "polarity": 1,
+          "alpha": 0.3609975015303785,
+          "error": 0.32695382102873927
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 4,
+            "width": 14,
+            "height": 6
+          },
+          "threshold": -649.0,
+          "polarity": 1,
+          "alpha": 0.28076746891522775,
+          "error": 0.36319237916221814
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 12,
+            "width": 9,
+            "height": 6
+          },
+          "threshold": 120.0,
+          "polarity": -1,
+          "alpha": 0.25118281813828824,
+          "error": 0.3769848967545748
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 10,
+            "y": 7,
+            "width": 6,
+            "height": 8
+          },
+          "threshold": -1231.0,
+          "polarity": -1,
+          "alpha": 0.2267138141361666,
+          "error": 0.38854612645127207
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 20,
+            "y": 1,
+            "width": 4,
+            "height": 22
+          },
+          "threshold": 353.0,
+          "polarity": -1,
+          "alpha": 0.26020563135491837,
+          "error": 0.3727560717401215
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 6,
+            "width": 10,
+            "height": 8
+          },
+          "threshold": -199.0,
+          "polarity": 1,
+          "alpha": 0.17794216130136312,
+          "error": 0.4119562192100613
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 10,
+            "y": 9,
+            "width": 10,
+            "height": 2
+          },
+          "threshold": 10.0,
+          "polarity": -1,
+          "alpha": 0.17607877568728134,
+          "error": 0.41285931845603313
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 4,
+            "y": 9,
+            "width": 18,
+            "height": 4
+          },
+          "threshold": -1297.0,
+          "polarity": -1,
+          "alpha": 0.1797105988528022,
+          "error": 0.4110996848725922
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 13,
+            "y": 0,
+            "width": 3,
+            "height": 1
+          },
+          "threshold": 38.0,
+          "polarity": 1,
+          "alpha": 0.19058471942046978,
+          "error": 0.40584487362951127
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 0,
+            "width": 23,
+            "height": 2
+          },
+          "threshold": 14.0,
+          "polarity": -1,
+          "alpha": 0.16420021072947114,
+          "error": 0.4186298760813008
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 7,
+            "y": 8,
+            "width": 10,
+            "height": 6
+          },
+          "threshold": 1012.0,
+          "polarity": 1,
+          "alpha": 0.17708348921629072,
+          "error": 0.4123723057138256
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 0,
+            "width": 13,
+            "height": 2
+          },
+          "threshold": -164.0,
+          "polarity": 1,
+          "alpha": 0.2014644714509129,
+          "error": 0.4006088337334727
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 3,
+            "width": 2,
+            "height": 18
+          },
+          "threshold": -143.0,
+          "polarity": -1,
+          "alpha": 0.16571557992602806,
+          "error": 0.41789244072065834
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 22,
+            "width": 16,
+            "height": 2
+          },
+          "threshold": -88.0,
+          "polarity": 1,
+          "alpha": 0.18979719963817707,
+          "error": 0.4062247267520411
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 8,
+            "width": 2,
+            "height": 3
+          },
+          "threshold": -9.019994735717773,
+          "polarity": 1,
+          "alpha": 0.16434655048600139,
+          "error": 0.41855864575938584
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 7,
+            "y": 0,
+            "width": 4,
+            "height": 1
+          },
+          "threshold": -58.0,
+          "polarity": -1,
+          "alpha": 0.1697249299853357,
+          "error": 0.4159431188415661
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 7,
+            "width": 6,
+            "height": 4
+          },
+          "threshold": 119.0,
+          "polarity": -1,
+          "alpha": 0.17388284363883827,
+          "error": 0.41392434075017787
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 21,
+            "y": 1,
+            "width": 2,
+            "height": 21
+          },
+          "threshold": -76.0,
+          "polarity": 1,
+          "alpha": 0.1509321444696621,
+          "error": 0.42510180563371525
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 9,
+            "y": 9,
+            "width": 2,
+            "height": 6
+          },
+          "threshold": -92.0,
+          "polarity": -1,
+          "alpha": 0.15057528739789336,
+          "error": 0.4252762397362906
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 4,
+            "y": 21,
+            "width": 12,
+            "height": 2
+          },
+          "threshold": -55.0,
+          "polarity": 1,
+          "alpha": 0.16058376533253596,
+          "error": 0.42039123806312545
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 5,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": 0.0,
+          "polarity": -1,
+          "alpha": 0.13643888702763657,
+          "error": 0.43220074256822755
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 21,
+            "y": 6,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": 2.0,
+          "polarity": 1,
+          "alpha": 0.13745045135931858,
+          "error": 0.4317043284582059
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 15,
+            "y": 2,
+            "width": 4,
+            "height": 12
+          },
+          "threshold": 42.0,
+          "polarity": -1,
+          "alpha": 0.13694558479263647,
+          "error": 0.43195206910779976
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 3,
+            "y": 17,
+            "width": 12,
+            "height": 2
+          },
+          "threshold": -28.319961547851562,
+          "polarity": 1,
+          "alpha": 0.12754962468043707,
+          "error": 0.43656880057541136
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 5,
+            "y": 1,
+            "width": 2,
+            "height": 3
+          },
+          "threshold": -47.0,
+          "polarity": -1,
+          "alpha": 0.1507249933754908,
+          "error": 0.42520306019397186
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 13,
+            "y": 4,
+            "width": 10,
+            "height": 16
+          },
+          "threshold": -976.0,
+          "polarity": 1,
+          "alpha": 0.1640809050246784,
+          "error": 0.4186879501916752
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 9,
+            "width": 14,
+            "height": 11
+          },
+          "threshold": 509.0,
+          "polarity": -1,
+          "alpha": 0.1335150976928651,
+          "error": 0.43363632250234274
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          },
+          "threshold": 81.0,
+          "polarity": 1,
+          "alpha": 0.14216651256622645,
+          "error": 0.4293917989054371
+        }
+      ]
+    },
+    {
+      "threshold": -1.8423848898962805,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 9,
+            "height": 2
+          },
+          "threshold": -68.0,
+          "polarity": 1,
+          "alpha": 0.5486396997168093,
+          "error": 0.2502500000000319
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 5,
+            "y": 0,
+            "width": 16,
+            "height": 4
+          },
+          "threshold": -326.3599853515625,
+          "polarity": 1,
+          "alpha": 0.43333497170766017,
+          "error": 0.295947689630333
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 20,
+            "width": 11,
+            "height": 4
+          },
+          "threshold": 154.0,
+          "polarity": -1,
+          "alpha": 0.37811369365046466,
+          "error": 0.3194659010633517
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 5,
+            "y": 8,
+            "width": 8,
+            "height": 4
+          },
+          "threshold": -38.00005340576172,
+          "polarity": 1,
+          "alpha": 0.2758220735055399,
+          "error": 0.3654830385088789
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 11,
+            "y": 8,
+            "width": 5,
+            "height": 12
+          },
+          "threshold": -584.0,
+          "polarity": -1,
+          "alpha": 0.2746814888294479,
+          "error": 0.3660122156659333
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 0,
+            "width": 6,
+            "height": 20
+          },
+          "threshold": 343.0,
+          "polarity": -1,
+          "alpha": 0.2688368757782424,
+          "error": 0.36872889267691966
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 4,
+            "width": 6,
+            "height": 11
+          },
+          "threshold": 91.0,
+          "polarity": -1,
+          "alpha": 0.20345363052041424,
+          "error": 0.3996539332642557
+        },
+        {
+          "feature": {
+            "kind": "three_vertical",
+            "x": 0,
+            "y": 4,
+            "width": 1,
+            "height": 3
+          },
+          "threshold": 89.0,
+          "polarity": 1,
+          "alpha": 0.19355747259668135,
+          "error": 0.40441201140890315
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 8,
+            "width": 4,
+            "height": 6
+          },
+          "threshold": -57.0,
+          "polarity": 1,
+          "alpha": 0.1603416069842029,
+          "error": 0.4205092524014371
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 5
+          },
+          "threshold": 83.0,
+          "polarity": 1,
+          "alpha": 0.17503641610833942,
+          "error": 0.41336475957127794
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 2,
+            "y": 22,
+            "width": 20,
+            "height": 2
+          },
+          "threshold": -107.0,
+          "polarity": 1,
+          "alpha": 0.21003473722415297,
+          "error": 0.3965001256295159
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 22,
+            "y": 14,
+            "width": 2,
+            "height": 8
+          },
+          "threshold": 20.0,
+          "polarity": -1,
+          "alpha": 0.16218826097086997,
+          "error": 0.4196095277721077
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 2,
+            "width": 2,
+            "height": 15
+          },
+          "threshold": -133.0,
+          "polarity": -1,
+          "alpha": 0.18467274841490675,
+          "error": 0.408699182069691
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 21,
+            "y": 11,
+            "width": 2,
+            "height": 9
+          },
+          "threshold": -71.33997344970703,
+          "polarity": 1,
+          "alpha": 0.18642203081219708,
+          "error": 0.407853975184781
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 11,
+            "y": 11,
+            "width": 4,
+            "height": 6
+          },
+          "threshold": 439.5199890136719,
+          "polarity": 1,
+          "alpha": 0.1499089973317362,
+          "error": 0.42560197650834153
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 3,
+            "y": 6,
+            "width": 16,
+            "height": 4
+          },
+          "threshold": -221.0,
+          "polarity": 1,
+          "alpha": 0.1863865455945908,
+          "error": 0.40787111530351644
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 4,
+            "y": 11,
+            "width": 11,
+            "height": 2
+          },
+          "threshold": -37.0,
+          "polarity": 1,
+          "alpha": 0.15993489659381802,
+          "error": 0.42070748057690965
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 8,
+            "y": 5,
+            "width": 10,
+            "height": 12
+          },
+          "threshold": -2149.0,
+          "polarity": -1,
+          "alpha": 0.15095608916845513,
+          "error": 0.4250901019733462
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 8,
+            "width": 6,
+            "height": 11
+          },
+          "threshold": 403.0,
+          "polarity": -1,
+          "alpha": 0.1782771237965348,
+          "error": 0.41179394060264185
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 9,
+            "y": 19,
+            "width": 3,
+            "height": 4
+          },
+          "threshold": 49.0,
+          "polarity": -1,
+          "alpha": 0.1383172310327292,
+          "error": 0.4312790749144191
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 13,
+            "y": 0,
+            "width": 2,
+            "height": 14
+          },
+          "threshold": 162.0,
+          "polarity": 1,
+          "alpha": 0.1410231111902017,
+          "error": 0.4299521889373269
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 5,
+            "y": 0,
+            "width": 13,
+            "height": 2
+          },
+          "threshold": -113.0,
+          "polarity": 1,
+          "alpha": 0.167914620815998,
+          "error": 0.4168229585401797
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 19,
+            "y": 1,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": -1.0,
+          "polarity": -1,
+          "alpha": 0.1463689587192653,
+          "error": 0.4273337120674915
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 17,
+            "y": 14,
+            "width": 4,
+            "height": 8
+          },
+          "threshold": -35.0,
+          "polarity": 1,
+          "alpha": 0.1352793357693943,
+          "error": 0.4327699471305263
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": -24.0,
+          "polarity": -1,
+          "alpha": 0.14272005613394992,
+          "error": 0.4291205677541726
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 4,
+            "width": 12,
+            "height": 5
+          },
+          "threshold": -576.4599609375,
+          "polarity": 1,
+          "alpha": 0.1565419713391616,
+          "error": 0.42236216248215713
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 8,
+            "y": 7,
+            "width": 11,
+            "height": 8
+          },
+          "threshold": 253.0,
+          "polarity": 1,
+          "alpha": 0.12813351433767192,
+          "error": 0.436281575635227
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 1,
+            "y": 12,
+            "width": 8,
+            "height": 12
+          },
+          "threshold": 280.0,
+          "polarity": -1,
+          "alpha": 0.1467612843766266,
+          "error": 0.42714170346103736
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 5,
+            "y": 0,
+            "width": 2,
+            "height": 6
+          },
+          "threshold": -111.0,
+          "polarity": -1,
+          "alpha": 0.1285519228777928,
+          "error": 0.4360757798591567
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 12,
+            "width": 12,
+            "height": 11
+          },
+          "threshold": -1196.0,
+          "polarity": 1,
+          "alpha": 0.16361405039589122,
+          "error": 0.4189152213861048
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 4,
+            "width": 12,
+            "height": 16
+          },
+          "threshold": 1146.0,
+          "polarity": -1,
+          "alpha": 0.13419144546357428,
+          "error": 0.4333041359453967
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 9,
+            "y": 9,
+            "width": 2,
+            "height": 7
+          },
+          "threshold": -101.0,
+          "polarity": -1,
+          "alpha": 0.1550059961637565,
+          "error": 0.42311181167954026
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 10,
+            "y": 9,
+            "width": 2,
+            "height": 6
+          },
+          "threshold": -12.29998779296875,
+          "polarity": 1,
+          "alpha": 0.14423489388651378,
+          "error": 0.42837852956034816
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 13,
+            "y": 10,
+            "width": 4,
+            "height": 2
+          },
+          "threshold": -21.0,
+          "polarity": 1,
+          "alpha": 0.11770582526017274,
+          "error": 0.4414173852381866
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 7,
+            "y": 22,
+            "width": 2,
+            "height": 1
+          },
+          "threshold": -5.0,
+          "polarity": -1,
+          "alpha": 0.12380170325894742,
+          "error": 0.43841347008286613
+        },
+        {
+          "feature": {
+            "kind": "three_vertical",
+            "x": 7,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          },
+          "threshold": 586.0,
+          "polarity": 1,
+          "alpha": 0.12294545781038917,
+          "error": 0.4388351418684219
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 6,
+            "width": 19,
+            "height": 10
+          },
+          "threshold": -4082.0,
+          "polarity": -1,
+          "alpha": 0.13135220112615437,
+          "error": 0.43469902281523576
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 1,
+            "width": 21,
+            "height": 4
+          },
+          "threshold": 321.0,
+          "polarity": -1,
+          "alpha": 0.1558569395915689,
+          "error": 0.4226964556209599
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 19,
+            "y": 0,
+            "width": 1,
+            "height": 12
+          },
+          "threshold": -37.0,
+          "polarity": 1,
+          "alpha": 0.1221091176122335,
+          "error": 0.43924709628688097
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 23,
+            "y": 20,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": 4.0,
+          "polarity": 1,
+          "alpha": 0.1298896353811769,
+          "error": 0.43541796910661534
+        }
+      ]
+    },
+    {
+      "threshold": -1.8238051098562877,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 9,
+            "height": 2
+          },
+          "threshold": -68.05998992919922,
+          "polarity": 1,
+          "alpha": 0.5645334743103524,
+          "error": 0.2443333333333652
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 20,
+            "width": 11,
+            "height": 4
+          },
+          "threshold": 211.0,
+          "polarity": -1,
+          "alpha": 0.44487036985734285,
+          "error": 0.29116333255301846
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 3,
+            "y": 0,
+            "width": 19,
+            "height": 4
+          },
+          "threshold": -212.0,
+          "polarity": 1,
+          "alpha": 0.3870260329474844,
+          "error": 0.3156032155834982
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 7,
+            "width": 14,
+            "height": 2
+          },
+          "threshold": 80.0,
+          "polarity": -1,
+          "alpha": 0.27840828253210353,
+          "error": 0.36428436461596714
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 11,
+            "y": 5,
+            "width": 2,
+            "height": 12
+          },
+          "threshold": -639.0,
+          "polarity": -1,
+          "alpha": 0.2566997163267204,
+          "error": 0.37439695788930083
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 5,
+            "y": 8,
+            "width": 8,
+            "height": 4
+          },
+          "threshold": -120.23997497558594,
+          "polarity": 1,
+          "alpha": 0.27835778823925833,
+          "error": 0.3643077520010457
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 4,
+            "width": 6,
+            "height": 12
+          },
+          "threshold": 136.0,
+          "polarity": -1,
+          "alpha": 0.21794727161948982,
+          "error": 0.392719651020879
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 0,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          },
+          "threshold": 194.0,
+          "polarity": 1,
+          "alpha": 0.20854789761983528,
+          "error": 0.3972119092589008
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 11,
+            "width": 10,
+            "height": 8
+          },
+          "threshold": 150.0,
+          "polarity": -1,
+          "alpha": 0.1892267108401204,
+          "error": 0.4064999670397566
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 6,
+            "width": 10,
+            "height": 10
+          },
+          "threshold": -117.99998474121094,
+          "polarity": 1,
+          "alpha": 0.1791759336313504,
+          "error": 0.4113585908682745
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 16,
+            "y": 6,
+            "width": 6,
+            "height": 5
+          },
+          "threshold": -65.59999084472656,
+          "polarity": 1,
+          "alpha": 0.17668541692076195,
+          "error": 0.41256524202541633
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 5
+          },
+          "threshold": 83.0,
+          "polarity": 1,
+          "alpha": 0.1824346394109739,
+          "error": 0.4097813639991677
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 22,
+            "width": 16,
+            "height": 2
+          },
+          "threshold": -88.0,
+          "polarity": 1,
+          "alpha": 0.20764544567455503,
+          "error": 0.3976441457874548
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 6,
+            "width": 4,
+            "height": 11
+          },
+          "threshold": -72.0,
+          "polarity": 1,
+          "alpha": 0.15901185419934438,
+          "error": 0.42115746061914416
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 1,
+            "width": 4,
+            "height": 6
+          },
+          "threshold": -268.0,
+          "polarity": -1,
+          "alpha": 0.16256215049273554,
+          "error": 0.41942742658435234
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 22,
+            "y": 17,
+            "width": 2,
+            "height": 5
+          },
+          "threshold": 29.0,
+          "polarity": -1,
+          "alpha": 0.18891157252994642,
+          "error": 0.4066520351116466
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 1,
+            "y": 7,
+            "width": 2,
+            "height": 17
+          },
+          "threshold": 27.0,
+          "polarity": -1,
+          "alpha": 0.14465361882214062,
+          "error": 0.4281734752157473
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 11,
+            "y": 8,
+            "width": 8,
+            "height": 8
+          },
+          "threshold": -1176.0,
+          "polarity": -1,
+          "alpha": 0.1570774668682148,
+          "error": 0.4221008920090118
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 0,
+            "y": 1,
+            "width": 24,
+            "height": 4
+          },
+          "threshold": 505.0,
+          "polarity": -1,
+          "alpha": 0.16846396488912047,
+          "error": 0.41655591212097964
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 17,
+            "y": 2,
+            "width": 2,
+            "height": 1
+          },
+          "threshold": -1.0,
+          "polarity": -1,
+          "alpha": 0.14890996592432332,
+          "error": 0.4260905052609082
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 14,
+            "width": 18,
+            "height": 8
+          },
+          "threshold": -414.0999755859375,
+          "polarity": 1,
+          "alpha": 0.12959112076372922,
+          "error": 0.4355647419575067
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 8,
+            "y": 23,
+            "width": 2,
+            "height": 1
+          },
+          "threshold": -6.0,
+          "polarity": -1,
+          "alpha": 0.14774758801881593,
+          "error": 0.4266590924108232
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 1,
+            "y": 10,
+            "width": 8,
+            "height": 14
+          },
+          "threshold": 394.0,
+          "polarity": -1,
+          "alpha": 0.1501810546174717,
+          "error": 0.42546896496321224
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 2,
+            "width": 6,
+            "height": 18
+          },
+          "threshold": -239.0,
+          "polarity": 1,
+          "alpha": 0.14104018937701124,
+          "error": 0.42994381745888854
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 9,
+            "width": 2,
+            "height": 11
+          },
+          "threshold": -148.0,
+          "polarity": -1,
+          "alpha": 0.14600816409691078,
+          "error": 0.4275103083586697
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 1,
+            "y": 12,
+            "width": 8,
+            "height": 12
+          },
+          "threshold": 345.0,
+          "polarity": -1,
+          "alpha": 0.16147499381269934,
+          "error": 0.4199569819775866
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 17,
+            "y": 14,
+            "width": 4,
+            "height": 8
+          },
+          "threshold": -35.259986877441406,
+          "polarity": 1,
+          "alpha": 0.12531146001120108,
+          "error": 0.43767018320890305
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 11,
+            "y": 0,
+            "width": 4,
+            "height": 2
+          },
+          "threshold": 67.0,
+          "polarity": 1,
+          "alpha": 0.13339393517654313,
+          "error": 0.43369583748449775
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 8,
+            "y": 22,
+            "width": 16,
+            "height": 2
+          },
+          "threshold": -62.0,
+          "polarity": 1,
+          "alpha": 0.14765827836366774,
+          "error": 0.42670278703729086
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 15,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": -1.0,
+          "polarity": 1,
+          "alpha": 0.12696890639299663,
+          "error": 0.436854507675559
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 14,
+            "y": 7,
+            "width": 10,
+            "height": 4
+          },
+          "threshold": -53.0,
+          "polarity": 1,
+          "alpha": 0.12799231174968886,
+          "error": 0.4363510316029424
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 7,
+            "y": 8,
+            "width": 10,
+            "height": 5
+          },
+          "threshold": -712.0,
+          "polarity": -1,
+          "alpha": 0.148737769257431,
+          "error": 0.42617472444958754
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 16,
+            "y": 12,
+            "width": 8,
+            "height": 12
+          },
+          "threshold": -694.5399780273438,
+          "polarity": 1,
+          "alpha": 0.14478001865129614,
+          "error": 0.4281115806313557
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 3,
+            "y": 11,
+            "width": 16,
+            "height": 5
+          },
+          "threshold": 1229.0,
+          "polarity": 1,
+          "alpha": 0.13491934900048402,
+          "error": 0.4329466948686186
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 4,
+            "width": 12,
+            "height": 16
+          },
+          "threshold": 1643.0,
+          "polarity": -1,
+          "alpha": 0.16104928665036358,
+          "error": 0.4201643947679201
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 3,
+            "y": 17,
+            "width": 12,
+            "height": 2
+          },
+          "threshold": -28.0,
+          "polarity": 1,
+          "alpha": 0.12186297038015849,
+          "error": 0.4393683565099843
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": -24.0,
+          "polarity": -1,
+          "alpha": 0.1335920080447404,
+          "error": 0.43359854515967383
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 0,
+            "width": 17,
+            "height": 2
+          },
+          "threshold": 82.0,
+          "polarity": -1,
+          "alpha": 0.14696162888137435,
+          "error": 0.4270436610622184
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 9,
+            "y": 8,
+            "width": 4,
+            "height": 8
+          },
+          "threshold": -17.219970703125,
+          "polarity": 1,
+          "alpha": 0.1274530146755608,
+          "error": 0.43661632873620954
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 20,
+            "y": 14,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": 0.0,
+          "polarity": -1,
+          "alpha": 0.12415943350817925,
+          "error": 0.4382373263977375
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 0,
+            "y": 21,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": -3.0,
+          "polarity": -1,
+          "alpha": 0.12615910474853623,
+          "error": 0.4372529912334966
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 11,
+            "width": 10,
+            "height": 2
+          },
+          "threshold": -82.0,
+          "polarity": 1,
+          "alpha": 0.1268189222009549,
+          "error": 0.43692830508897496
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 5,
+            "y": 9,
+            "width": 18,
+            "height": 4
+          },
+          "threshold": 1842.0,
+          "polarity": 1,
+          "alpha": 0.12752557328391548,
+          "error": 0.436580632767364
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 5,
+            "y": 0,
+            "width": 7,
+            "height": 2
+          },
+          "threshold": -108.0,
+          "polarity": 1,
+          "alpha": 0.1424656567992297,
+          "error": 0.4292452157635302
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 6,
+            "y": 1,
+            "width": 2,
+            "height": 22
+          },
+          "threshold": 192.0,
+          "polarity": 1,
+          "alpha": 0.13201313301322473,
+          "error": 0.4343742216703024
+        },
+        {
+          "feature": {
+            "kind": "three_vertical",
+            "x": 7,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          },
+          "threshold": 585.2799682617188,
+          "polarity": 1,
+          "alpha": 0.1469523895174744,
+          "error": 0.4270481823948809
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 18,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": 0.0,
+          "polarity": -1,
+          "alpha": 0.12733756751162362,
+          "error": 0.43667312553353976
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 4,
+            "y": 6,
+            "width": 16,
+            "height": 10
+          },
+          "threshold": -3217.0,
+          "polarity": -1,
+          "alpha": 0.13477507027550317,
+          "error": 0.4330175382049999
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 0,
+            "y": 6,
+            "width": 19,
+            "height": 4
+          },
+          "threshold": -347.0400085449219,
+          "polarity": 1,
+          "alpha": 0.14735633617894778,
+          "error": 0.42685052030672554
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 2,
+            "y": 21,
+            "width": 10,
+            "height": 2
+          },
+          "threshold": -33.0,
+          "polarity": 1,
+          "alpha": 0.11645002193004193,
+          "error": 0.4420367580699591
+        }
+      ]
+    },
+    {
+      "threshold": -1.7367903477593765,
+      "weak_classifiers": [
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 10,
+            "width": 9,
+            "height": 2
+          },
+          "threshold": -68.0,
+          "polarity": 1,
+          "alpha": 0.5936281595407235,
+          "error": 0.23375000000003188
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 3,
+            "y": 0,
+            "width": 19,
+            "height": 4
+          },
+          "threshold": -220.5800018310547,
+          "polarity": 1,
+          "alpha": 0.4372971014500566,
+          "error": 0.294299243990458
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 9,
+            "y": 20,
+            "width": 5,
+            "height": 4
+          },
+          "threshold": 99.0,
+          "polarity": -1,
+          "alpha": 0.38792879655006324,
+          "error": 0.31521335553593155
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 10,
+            "y": 9,
+            "width": 10,
+            "height": 2
+          },
+          "threshold": 22.0,
+          "polarity": -1,
+          "alpha": 0.2855431400126781,
+          "error": 0.36098620920572083
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 10,
+            "y": 6,
+            "width": 3,
+            "height": 10
+          },
+          "threshold": -704.0,
+          "polarity": -1,
+          "alpha": 0.29255814192101837,
+          "error": 0.3577561884462251
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 1,
+            "width": 6,
+            "height": 14
+          },
+          "threshold": 216.0,
+          "polarity": -1,
+          "alpha": 0.29094421100805223,
+          "error": 0.35849818363774005
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 13,
+            "y": 1,
+            "width": 6,
+            "height": 14
+          },
+          "threshold": 84.0,
+          "polarity": -1,
+          "alpha": 0.22874262583572916,
+          "error": 0.38758256134375113
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 6,
+            "width": 10,
+            "height": 8
+          },
+          "threshold": -166.37997436523438,
+          "polarity": 1,
+          "alpha": 0.21781647356590755,
+          "error": 0.3927820410694699
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 0,
+            "y": 4,
+            "width": 3,
+            "height": 19
+          },
+          "threshold": 1790.06005859375,
+          "polarity": 1,
+          "alpha": 0.18182506754747416,
+          "error": 0.41007625922853275
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 8,
+            "width": 2,
+            "height": 4
+          },
+          "threshold": 11.0,
+          "polarity": -1,
+          "alpha": 0.17522198103613942,
+          "error": 0.4132747655783056
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 14,
+            "y": 14,
+            "width": 6,
+            "height": 3
+          },
+          "threshold": 254.0,
+          "polarity": -1,
+          "alpha": 0.17003990834595054,
+          "error": 0.4157900887661496
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 22,
+            "width": 16,
+            "height": 2
+          },
+          "threshold": -88.0,
+          "polarity": 1,
+          "alpha": 0.19452442075833734,
+          "error": 0.40394629369815205
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 14,
+            "y": 12,
+            "width": 3,
+            "height": 6
+          },
+          "threshold": 10.0,
+          "polarity": -1,
+          "alpha": 0.16916171009839365,
+          "error": 0.4162167957422135
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 5,
+            "width": 4,
+            "height": 6
+          },
+          "threshold": -67.0,
+          "polarity": 1,
+          "alpha": 0.14694849397479082,
+          "error": 0.42705008870340155
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 9,
+            "y": 9,
+            "width": 2,
+            "height": 7
+          },
+          "threshold": -104.0,
+          "polarity": -1,
+          "alpha": 0.15300662053272807,
+          "error": 0.42408815858677695
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 22,
+            "y": 2,
+            "width": 2,
+            "height": 20
+          },
+          "threshold": 179.0,
+          "polarity": -1,
+          "alpha": 0.1766203832384226,
+          "error": 0.4125967648812431
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 14,
+            "y": 11,
+            "width": 4,
+            "height": 10
+          },
+          "threshold": 1376.5999755859375,
+          "polarity": 1,
+          "alpha": 0.14887839868658725,
+          "error": 0.42610594407257973
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 21,
+            "y": 7,
+            "width": 2,
+            "height": 14
+          },
+          "threshold": -86.0,
+          "polarity": 1,
+          "alpha": 0.18110779745882086,
+          "error": 0.41042333889401195
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 14,
+            "y": 5,
+            "width": 3,
+            "height": 6
+          },
+          "threshold": -62.0,
+          "polarity": 1,
+          "alpha": 0.147203540328826,
+          "error": 0.4269252847282362
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 10,
+            "y": 0,
+            "width": 2,
+            "height": 5
+          },
+          "threshold": 78.0,
+          "polarity": 1,
+          "alpha": 0.15629233486326255,
+          "error": 0.42248397600484267
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 8,
+            "y": 22,
+            "width": 12,
+            "height": 2
+          },
+          "threshold": -59.0,
+          "polarity": 1,
+          "alpha": 0.17622627158193005,
+          "error": 0.41278781236702167
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 17,
+            "y": 2,
+            "width": 2,
+            "height": 1
+          },
+          "threshold": 0.0,
+          "polarity": -1,
+          "alpha": 0.14217368952888157,
+          "error": 0.4293882819894279
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 5,
+            "width": 15,
+            "height": 12
+          },
+          "threshold": -3697.0,
+          "polarity": -1,
+          "alpha": 0.12323453436409686,
+          "error": 0.438692771581766
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 7,
+            "width": 8,
+            "height": 12
+          },
+          "threshold": 799.0,
+          "polarity": -1,
+          "alpha": 0.16086063707122006,
+          "error": 0.42025631752464154
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 3,
+            "y": 6,
+            "width": 6,
+            "height": 4
+          },
+          "threshold": -46.0,
+          "polarity": 1,
+          "alpha": 0.13070933381508498,
+          "error": 0.43501500030439333
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 5,
+            "y": 8,
+            "width": 16,
+            "height": 5
+          },
+          "threshold": 1897.0,
+          "polarity": 1,
+          "alpha": 0.1427830754303048,
+          "error": 0.4290896915863887
+        },
+        {
+          "feature": {
+            "kind": "three_vertical",
+            "x": 7,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          },
+          "threshold": 535.0,
+          "polarity": 1,
+          "alpha": 0.15734854566340326,
+          "error": 0.4219686481589868
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 23,
+            "y": 20,
+            "width": 1,
+            "height": 2
+          },
+          "threshold": 4.0,
+          "polarity": 1,
+          "alpha": 0.13003570449938295,
+          "error": 0.4353461543644096
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 1,
+            "y": 1,
+            "width": 20,
+            "height": 2
+          },
+          "threshold": 47.0,
+          "polarity": -1,
+          "alpha": 0.13894343517586383,
+          "error": 0.43097191389954287
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 15,
+            "y": 18,
+            "width": 4,
+            "height": 6
+          },
+          "threshold": 17.0,
+          "polarity": -1,
+          "alpha": 0.13296883989058816,
+          "error": 0.43390465924295235
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 0,
+            "y": 2,
+            "width": 10,
+            "height": 8
+          },
+          "threshold": -175.48001098632812,
+          "polarity": 1,
+          "alpha": 0.1225578700523585,
+          "error": 0.439026044749222
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 7,
+            "y": 10,
+            "width": 12,
+            "height": 3
+          },
+          "threshold": -802.0,
+          "polarity": -1,
+          "alpha": 0.1586061482240967,
+          "error": 0.4213552823961575
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 0,
+            "width": 12,
+            "height": 23
+          },
+          "threshold": -2553.479736328125,
+          "polarity": 1,
+          "alpha": 0.1586992071477132,
+          "error": 0.4213099047360045
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 13
+          },
+          "threshold": -179.36000061035156,
+          "polarity": 1,
+          "alpha": 0.1282190473582049,
+          "error": 0.4362395041182045
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 5,
+            "y": 0,
+            "width": 2,
+            "height": 6
+          },
+          "threshold": -111.0,
+          "polarity": -1,
+          "alpha": 0.14060281868604116,
+          "error": 0.430158222813826
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 6,
+            "y": 0,
+            "width": 13,
+            "height": 2
+          },
+          "threshold": -166.0,
+          "polarity": 1,
+          "alpha": 0.15287146530042298,
+          "error": 0.42415417986411286
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 7,
+            "y": 4,
+            "width": 2,
+            "height": 1
+          },
+          "threshold": 3.0,
+          "polarity": 1,
+          "alpha": 0.12972770853429735,
+          "error": 0.4354975834529799
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 1,
+            "y": 7,
+            "width": 2,
+            "height": 16
+          },
+          "threshold": 36.0,
+          "polarity": -1,
+          "alpha": 0.12148687743535384,
+          "error": 0.4395536462411201
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 8,
+            "y": 22,
+            "width": 2,
+            "height": 1
+          },
+          "threshold": -1.0,
+          "polarity": -1,
+          "alpha": 0.12044234015296529,
+          "error": 0.44006834670932804
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 4,
+            "y": 18,
+            "width": 5,
+            "height": 6
+          },
+          "threshold": 72.0,
+          "polarity": -1,
+          "alpha": 0.12334489308132059,
+          "error": 0.43863842254211133
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 12,
+            "width": 4,
+            "height": 5
+          },
+          "threshold": -216.0,
+          "polarity": -1,
+          "alpha": 0.12455585015262811,
+          "error": 0.43804215200688407
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 5,
+            "y": 18,
+            "width": 12,
+            "height": 6
+          },
+          "threshold": -222.0,
+          "polarity": 1,
+          "alpha": 0.14466503097858377,
+          "error": 0.42816788689845114
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 18,
+            "y": 13,
+            "width": 6,
+            "height": 2
+          },
+          "threshold": 19.0,
+          "polarity": -1,
+          "alpha": 0.12476849929015574,
+          "error": 0.43793746282267265
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 0,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": 16.520004272460938,
+          "polarity": 1,
+          "alpha": 0.11927169180546363,
+          "error": 0.4406453421055702
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 1,
+            "y": 8,
+            "width": 14,
+            "height": 4
+          },
+          "threshold": -267.0,
+          "polarity": 1,
+          "alpha": 0.1327079010674415,
+          "error": 0.4340328532019069
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 14,
+            "y": 3,
+            "width": 1,
+            "height": 14
+          },
+          "threshold": 333.0,
+          "polarity": 1,
+          "alpha": 0.1272132450489034,
+          "error": 0.4367342905886726
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 6,
+            "y": 23,
+            "width": 18,
+            "height": 1
+          },
+          "threshold": -250.09999084472656,
+          "polarity": 1,
+          "alpha": 0.14359332463572644,
+          "error": 0.42869276098837666
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 8,
+            "y": 15,
+            "width": 16,
+            "height": 7
+          },
+          "threshold": 147.0,
+          "polarity": -1,
+          "alpha": 0.12236945893442427,
+          "error": 0.4391188514809923
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 19,
+            "y": 15,
+            "width": 3,
+            "height": 6
+          },
+          "threshold": 40.0,
+          "polarity": -1,
+          "alpha": 0.1165881616430438,
+          "error": 0.44196861753142225
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 16,
+            "y": 3,
+            "width": 3,
+            "height": 14
+          },
+          "threshold": -1071.0,
+          "polarity": -1,
+          "alpha": 0.11864372297333248,
+          "error": 0.44095492492151256
+        },
+        {
+          "feature": {
+            "kind": "three_horizontal",
+            "x": 19,
+            "y": 18,
+            "width": 3,
+            "height": 4
+          },
+          "threshold": 654.0,
+          "polarity": -1,
+          "alpha": 0.14381047192413873,
+          "error": 0.42858639890703504
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 15,
+            "y": 0,
+            "width": 6,
+            "height": 1
+          },
+          "threshold": 76.0,
+          "polarity": 1,
+          "alpha": 0.13240720230665454,
+          "error": 0.4341805913587674
+        },
+        {
+          "feature": {
+            "kind": "two_vertical",
+            "x": 7,
+            "y": 0,
+            "width": 17,
+            "height": 2
+          },
+          "threshold": 44.0,
+          "polarity": -1,
+          "alpha": 0.12416509200271544,
+          "error": 0.4382345403225185
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 6,
+            "y": 21,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": 0.0,
+          "polarity": 1,
+          "alpha": 0.11527341109543122,
+          "error": 0.44261723618992543
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 6,
+            "y": 17,
+            "width": 10,
+            "height": 2
+          },
+          "threshold": -27.0,
+          "polarity": 1,
+          "alpha": 0.11955207261762282,
+          "error": 0.4405071318526922
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 10,
+            "y": 13,
+            "width": 4,
+            "height": 8
+          },
+          "threshold": -64.0,
+          "polarity": -1,
+          "alpha": 0.11812449550082056,
+          "error": 0.4412109339449526
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 15,
+            "y": 3,
+            "width": 4,
+            "height": 10
+          },
+          "threshold": 45.0,
+          "polarity": -1,
+          "alpha": 0.1072123156875317,
+          "error": 0.4465982938290951
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 5,
+            "width": 8,
+            "height": 4
+          },
+          "threshold": -79.0,
+          "polarity": 1,
+          "alpha": 0.11183195388227667,
+          "error": 0.4443159650873547
+        },
+        {
+          "feature": {
+            "kind": "two_horizontal",
+            "x": 12,
+            "y": 3,
+            "width": 2,
+            "height": 2
+          },
+          "threshold": -19.0,
+          "polarity": -1,
+          "alpha": 0.12236573033729121,
+          "error": 0.43912068814019584
+        },
+        {
+          "feature": {
+            "kind": "four",
+            "x": 14,
+            "y": 14,
+            "width": 10,
+            "height": 10
+          },
+          "threshold": -699.4599609375,
+          "polarity": 1,
+          "alpha": 0.12791927401587613,
+          "error": 0.4363869590241763
+        }
+      ]
+    }
+  ]
+}

@@ -19,17 +19,22 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Evaluate OpenCV or custom face detector on annotated images.")
     parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv")
-    parser.add_argument("--model", default="models/custom_cascade.json", help="Custom cascade model path.")
+    parser.add_argument("--model", default="models/custom_cascade_v3_hnm.json", help="Custom cascade model path.")
     parser.add_argument("--image-dir", default="data/test/images")
     parser.add_argument("--annotations", default="data/test/annotations.json")
     parser.add_argument("--output-dir", default="results/eval")
     parser.add_argument("--iou-threshold", type=float, default=0.5)
     parser.add_argument("--scale-factor", type=float, default=1.2)
-    parser.add_argument("--min-neighbors", type=int, default=4)
-    parser.add_argument("--min-size", type=int, default=30)
+    parser.add_argument("--min-neighbors", type=int, default=5,
+                        help="groupRectangles 最小邻居数（0=只用NMS，>0更严格）")
+    parser.add_argument("--min-size", type=int, default=100)
     parser.add_argument("--window-step", type=int, default=4)
     parser.add_argument("--nms-threshold", type=float, default=0.3)
+    parser.add_argument("--score-threshold", type=float, default=0.0, help="累积分数阈值，过滤低置信度检测（0=不过滤）")
+    parser.add_argument("--no-variance-normalize", action="store_true", default=True,
+                        help="关闭方差归一化（默认开启；模型在原始像素值上训练）")
     parser.add_argument("--equalize", action="store_true")
+    parser.add_argument("--clahe", action="store_true", help="使用 CLAHE 自适应直方图均衡化预处理")
     return parser.parse_args()
 
 
@@ -61,7 +66,10 @@ def main() -> None:
         "min_size": args.min_size,
         "window_step": args.window_step,
         "nms_threshold": args.nms_threshold,
+        "score_threshold": args.score_threshold,
+        "variance_normalize": not args.no_variance_normalize,
         "equalize": args.equalize,
+        "clahe": args.clahe,
     }
 
     rows = []
@@ -71,11 +79,14 @@ def main() -> None:
     total_time = 0.0
     evaluated = 0
 
-    for image_path in image_paths(image_dir):
+    all_paths = image_paths(image_dir)
+    total_imgs = len(all_paths)
+    for image_path in all_paths:
         frame = cv2.imread(str(image_path))
         if frame is None:
             continue
         gt_boxes = annotations.get(image_path.name, annotations.get(str(image_path.relative_to(image_dir)), []))
+        print(f"\r  [{evaluated+1}/{total_imgs}] {image_path.name[:40]:<40}", end="", flush=True)
 
         start = time.perf_counter()
         _, predictions = detector.detect(frame, options)
@@ -138,6 +149,7 @@ def main() -> None:
         writer.writerows(rows)
 
     (output_dir / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    print()  # 换行，结束进度条
     print(f"[INFO] Evaluated {evaluated} image(s) with {args.detector} detector")
     print(f"[INFO] Precision={summary['precision']:.4f} Recall={summary['recall']:.4f} F1={summary['f1']:.4f}")
     print(f"[INFO] Average FPS={summary['average_fps']:.2f}")

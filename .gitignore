@@ -9,10 +9,17 @@ __pycache__/
 .vscode/
 .idea/
 
-# 运行结果和实验产物，不随源码提交
+# 运行结果和实验产物
 results/
 image/
 
-# 训练得到的模型可能较大，按实验需要单独生成
-models/*.json
+# 大数据文件（通过微信群分享）
+.data_tmp/
+data/train/positives/
+data/test/images/
+data/test/caltech/
+train_bundle*.zip
+train_bundle*.tar
 
+# 临时调试脚本的中间产物
+*.pyc

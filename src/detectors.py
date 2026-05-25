@@ -10,6 +10,22 @@ from .nms import non_max_suppression
 from .sliding_window import detect_multiscale
 
 
+def _expand_boxes(boxes: list[tuple[int, int, int, int]], frame_shape: tuple) -> list[tuple[int, int, int, int]]:
+    """Map tight custom detections to a fuller face region."""
+    height, width = frame_shape[:2]
+    expanded = []
+    for x, y, w, h in boxes:
+        pad_x = int(round(w * 0.06))
+        pad_top = int(round(h * 0.05))
+        pad_bottom = int(round(h * 0.18))
+        x1 = max(0, x - pad_x)
+        y1 = max(0, y - pad_top)
+        x2 = min(width, x + w + pad_x)
+        y2 = min(height, y + h + pad_bottom)
+        expanded.append((x1, y1, x2 - x1, y2 - y1))
+    return expanded
+
+
 class OpenCVHaarDetector:
     """OpenCV 预训练 Haar Cascade 基线检测器。"""
 
@@ -61,7 +77,10 @@ class CustomCascadeDetector:
 
     def detect(self, frame, options: dict) -> tuple:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        if options.get("equalize"):
+        if options.get("clahe"):
+            clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+            gray = clahe.apply(gray)
+        elif options.get("equalize"):
             gray = cv2.equalizeHist(gray)
         faces = detect_multiscale(
             gray,
@@ -70,7 +89,11 @@ class CustomCascadeDetector:
             step=int(options.get("window_step", 4)),
             min_size=int(options.get("min_size", 30)),
             nms_threshold=float(options.get("nms_threshold", 0.3)),
+            min_neighbors=int(options.get("min_neighbors", 0)),
+            score_threshold=float(options.get("score_threshold", 0.0)),
+            variance_normalize=bool(options.get("variance_normalize", True)),
         )
+        faces = _expand_boxes(faces, frame.shape)
         return gray, faces
 
 

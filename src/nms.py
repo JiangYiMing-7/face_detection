@@ -31,4 +31,33 @@ def non_max_suppression(boxes: list[tuple], threshold: float = 0.3) -> list[tupl
     for box in candidates:
         if all(intersection_over_union(box, kept) < threshold for kept in selected):
             selected.append(box)
-    return selected
+    # 去掉被大框包含的小框（眼睛/鼻子等子区域误检）
+    return remove_contained_boxes(selected)
+
+
+def remove_contained_boxes(boxes: list[tuple], coverage: float = 0.5) -> list[tuple]:
+    """如果小框的大部分面积被某个大框覆盖，删掉小框。"""
+    if len(boxes) <= 1:
+        return boxes
+    keep = []
+    for i, a in enumerate(boxes):
+        ax, ay, aw, ah = a[:4]
+        a_area = aw * ah
+        contained = False
+        for j, b in enumerate(boxes):
+            if i == j:
+                continue
+            bx, by, bw, bh = b[:4]
+            b_area = bw * bh
+            if b_area <= a_area:
+                continue  # 只看比自己大的框
+            # 计算交集
+            ix1, iy1 = max(ax, bx), max(ay, by)
+            ix2, iy2 = min(ax + aw, bx + bw), min(ay + ah, by + bh)
+            inter = max(0, ix2 - ix1) * max(0, iy2 - iy1)
+            if a_area > 0 and inter / a_area >= coverage:
+                contained = True
+                break
+        if not contained:
+            keep.append(a)
+    return keep

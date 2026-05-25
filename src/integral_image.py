@@ -15,6 +15,20 @@ def compute_integral_image(image: np.ndarray) -> np.ndarray:
     return np.pad(integral, ((1, 0), (1, 0)), mode="constant")
 
 
+def compute_integral_image_sq(image: np.ndarray) -> np.ndarray:
+    """计算单张灰度图的像素平方积分图。
+
+    用于在滑窗检测时 O(1) 计算每个窗口的方差，实现与训练时一致的方差归一化。
+    Var(window) = E[x²] - E[x]²，两个积分图各查一次即可。
+    """
+    gray = np.asarray(image, dtype=np.float64)
+    if gray.ndim != 2:
+        raise ValueError("compute_integral_image_sq expects a 2D grayscale image")
+    sq = gray ** 2
+    integral = sq.cumsum(axis=0).cumsum(axis=1)
+    return np.pad(integral, ((1, 0), (1, 0)), mode="constant")
+
+
 def compute_integral_images(images: np.ndarray) -> np.ndarray:
     """批量计算训练窗口的积分图。"""
     batch = np.asarray(images, dtype=np.float64)
