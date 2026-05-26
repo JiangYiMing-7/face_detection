@@ -1,169 +1,147 @@
 # Viola-Jones 实时人脸检测系统
 
-本项目用于计算机视觉大作业“目标检测系统”。系统包含两套非深度学习人脸检测器：
+计算机视觉课程大作业：从零实现 Viola-Jones 人脸检测算法，并与 OpenCV 预训练 Haar Cascade 进行对比。
 
-- `opencv`：调用 OpenCV 已经训练好的 Haar Cascade，作为基线方法。
-- `custom`：本项目手写实现的教学版 Viola-Jones 级联分类器。
+## 核心成果
 
-自定义检测器实现了核心算法链路：积分图、Haar-like 矩形特征、单特征弱分类器、AdaBoost 强分类器、简化 Cascade、多尺度滑窗、IoU/NMS 和检测指标评估。OpenCV 只用于图片/视频读取、缩放、窗口显示和画框。
+| 检测器 | LFW F1 | 说明 |
+|--------|--------|------|
+| OpenCV Haar Cascade | 0.963 | 预训练基线 |
+| **自实现 v6.1** | **1.000** | 零漏检、零误报 |
 
-## 1. 环境配置
+## 项目结构
 
-建议使用 Python 3.10 或以上版本。可以任选一种方式创建环境，只要最终能安装 `requirements.txt` 中的依赖即可。
+```
+custom/
+├── train.py                  # 训练脚本（v3 及以前，1000正样本）
+├── train_v6.py               # v6/v6.1 训练脚本（3000正样本、x7增强）
+├── evaluate.py               # 定量评估（支持 --clahe）
+├── demo.py                   # 实时摄像头演示（双屏对比）
+├── prepare_data.py           # 从 WIDER FACE 裁切训练正样本
+├── audit_cascade.py          # 级联模型审计（分析每级 FPR/TPR）
+├── main.py                   # 早期演示入口（单检测器）
+├── src/
+│   ├── integral_image.py     # 积分图（含平方积分图）
+│   ├── haar_features.py      # Haar-like 特征定义与枚举
+│   ├── adaboost.py           # AdaBoost 训练与弱/强分类器
+│   ├── cascade.py            # 级联分类器（JSON 序列化）
+│   ├── sliding_window.py     # 多尺度滑窗 + _cluster_weighted_merge
+│   ├── nms.py                # NMS + 包含框过滤
+│   ├── detectors.py          # 统一接口（OpenCV / Custom + CLAHE）
+│   ├── metrics.py            # P/R/F1 评估指标
+│   └── annotations.py        # 标注文件解析
+├── models/                   # 训练好的级联模型（JSON）
+│   ├── custom_cascade_v3_hnm.json      # v3: 8级/70弱分类器
+│   ├── custom_cascade_v6_full.json     # v6: 10级/525弱 (x4增强)
+│   └── custom_cascade_v6_full_1.json   # v6.1: 10级/517弱 (x7增强) ★
+├── data/
+│   ├── train/negatives/      # 负样本图片（300张）
+│   └── test_lfw/             # LFW 测试集（200张 + annotations）
+└── results/                  # 评估结果、可视化
+```
 
-方式一：使用 `venv`：
+## 环境配置
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-方式二：使用 conda：
+依赖：Python 3.10+、numpy、opencv-python（不使用任何深度学习框架）。
+
+## 快速开始
+
+### 1. 定量评估
 
 ```bash
-conda create -n face-detection python=3.10
-conda activate face-detection
-pip install -r requirements.txt
+# 在 LFW 上评估 v6.1 模型（F1=1.000）
+python evaluate.py --detector custom \
+  --model models/custom_cascade_v6_full_1.json \
+  --test-dir data/test_lfw \
+  --min-neighbors 10 --clahe
+
+# 评估 v3 模型
+python evaluate.py --detector custom \
+  --model models/custom_cascade_v3_hnm.json \
+  --test-dir data/test_lfw \
+  --min-neighbors 5
+
+# OpenCV 基线
+python evaluate.py --detector opencv --test-dir data/test_lfw
 ```
 
-如果你已经有可用的 Python 环境，也可以直接在该环境中安装依赖：
+### 2. 实时摄像头演示
 
 ```bash
-pip install -r requirements.txt
+# 双屏对比（左: OpenCV, 右: 自实现）
+python demo.py --model models/custom_cascade_v6_full_1.json
+
+# 常用参数
+python demo.py \
+  --model models/custom_cascade_v3_hnm.json \
+  --scale-factor 1.2 \
+  --min-size 40 \
+  --window-step 6 \
+  --min-neighbors-custom 3 \
+  --score-threshold 5.0
 ```
 
-## 2. 实时演示
+**快捷键**：`q` 退出 | `r` 录制 | 空格 暂停
 
-使用 OpenCV 预训练分类器：
+### 3. 训练模型
+
+训练数据需要自行准备（正样本从 WIDER FACE 裁切，负样本为非人脸图片）：
 
 ```bash
-python main.py --detector opencv
-```
+# 准备正样本
+python prepare_data.py
 
-使用自己训练的分类器：
-
-```bash
-python main.py --detector custom --model models/custom_cascade.json
-```
-
-指定图片或视频输入：
-
-```bash
-python main.py --detector opencv --source data/test/images/example.jpg
-python main.py --detector custom --source data/test/images/example.jpg
-python main.py --detector opencv --source path/to/video.mp4
-```
-
-只保存结果、不弹出窗口：
-
-```bash
-python main.py --detector custom --source data/test/images/example.jpg --no-display
-```
-
-交互控制窗口说明：
-
-- `scale x100`：图像金字塔缩放系数乘以 100，例如 110 表示 `1.10`。
-- `minNeighbors`：OpenCV Haar 检测器的候选框过滤参数。
-- `minSize`：最小人脸尺寸。
-- `window step`：自定义检测器的滑窗步长，越小越细但越慢。
-- `equalize`：是否开启直方图均衡。
-- `eyes`：是否在人脸框内继续检测眼睛。
-- `privacy blur`：是否对检测到的人脸区域做模糊处理。
-
-快捷键：
-
-- `s`：保存当前检测结果到 `results/screenshots/`。
-- `f`：保存检测到的人脸裁剪到 `results/faces/`。
-- `q` 或 `Esc`：退出程序。
-
-## 3. 训练自定义 Cascade
-
-准备训练数据：
-
-```text
-data/train/positives/   # 人脸裁剪图，每张图视为一个正样本
-data/train/negatives/   # 非人脸图片，程序会从中随机裁剪负样本
-```
-
-正式训练命令：
-
-```bash
+# 训练 v3 级别模型
 python train.py \
   --positive-dir data/train/positives \
   --negative-dir data/train/negatives \
-  --output models/custom_cascade.json
+  --output models/my_cascade.json \
+  --max-features 20000 \
+  --stage-sizes 10,20,40
+
+# 训练 v6 级别模型（需要 3000+ 正样本）
+python train_v6.py \
+  --positive-dir data/train/positives \
+  --negative-dir data/train/negatives \
+  --output models/my_cascade_v6.json
 ```
 
-默认训练设置：
+## 算法亮点
 
-- 训练窗口：`24x24`
-- Haar 特征候选数：`8000`
-- Cascade 阶段：`10,20,40`，即 3 个 AdaBoost 强分类器，共 70 个 Haar 弱分类器
-- 负样本 patch 数：`2500`
-- 每一级训练后进行 hard negative mining
+### 自定义后处理：_cluster_weighted_merge
 
-如果先验证流程，可以降低训练规模：
+替代 `cv2.groupRectangles`，使用三条件聚类解决跨尺度检测框合并：
+- IoU >= 0.18（传统重叠条件）
+- 包含度 >= 0.65（小框被大框覆盖）
+- 中心距离近 + 尺寸相近（放宽几何约束）
 
-```bash
-python train.py --max-features 500 --stage-sizes 2,4 --negative-samples 200 --active-negatives 100
-```
+### 多目标跟踪：TrackingBoxSmoother
 
-训练完成后，模型保存到 `models/custom_cascade.json`，每一级最强的 Haar 特征可视化图保存到 `results/features/`。
+实时演示中的多人脸独立跟踪，支持：
+- IoU + 距离组合匹配评分
+- 自适应平滑系数（静止 alpha=0.65，移动 alpha=0.9）
+- 最多同时跟踪 8 张脸
 
-## 4. 测评
+### CLAHE 预处理
 
-准备测试集：
+可选的自适应直方图均衡化，提升光照不均场景下的检测稳定性。
 
-```text
-data/test/images/
-data/test/annotations.json
-```
+### x7 数据增强（v6.1）
 
-标注格式：
+翻转 + 亮度扰动 + gamma 校正 + 高斯噪声，3000 正样本扩充到 21000。
 
-```json
-{
-  "image1.jpg": [[x, y, w, h], [x, y, w, h]],
-  "image2.jpg": [[x, y, w, h]]
-}
-```
+## 模型对比
 
-运行测评：
+| 模型 | 正样本 | 增强 | 级联 | LFW F1 |
+|------|--------|------|------|--------|
+| v3 | 1000 | x4 | 8级/70弱 | 0.983 |
+| v6 | 3000 | x4 | 10级/525弱 | 0.9975 |
+| **v6.1** | **3000** | **x7** | **10级/517弱** | **1.000** |
 
-```bash
-python evaluate.py --detector opencv
-python evaluate.py --detector custom --model models/custom_cascade.json
-```
+## 参考文献
 
-输出文件：
-
-- `results/eval/summary.json`：Precision、Recall、F1、TP、FP、FN、平均耗时和 FPS。
-- `results/eval/metrics.csv`：逐图测评结果。
-- `results/eval/visualizations/`：真实框和预测框的可视化对比图。
-
-## 5. 代码结构
-
-```text
-main.py                  # 实时演示入口
-train.py                 # 自定义 Cascade 训练入口
-evaluate.py              # 测评入口
-src/integral_image.py    # 积分图与矩形求和
-src/haar_features.py     # Haar-like 特征生成和计算
-src/adaboost.py          # AdaBoost 弱分类器选择和强分类器训练
-src/cascade.py           # 多级强分类器串联
-src/sliding_window.py    # 多尺度滑窗检测
-src/nms.py               # IoU 和非极大值抑制
-src/metrics.py           # Precision / Recall / F1 计算
-```
-
-## 6. 大作业说明
-
-本项目对应 Viola 和 Jones 的论文《Robust Real-Time Face Detection》的核心思想：
-
-- 使用积分图快速计算矩形区域像素和。
-- 使用 Haar-like 矩形特征描述人脸局部结构。
-- 使用 AdaBoost 从大量候选特征中选择有效弱分类器。
-- 使用 Cascade 结构快速拒绝大量背景窗口。
-
-当前实现是课程设计规模的简化版本，目标是完整展示算法训练、检测和评估闭环；它不追求论文原版工业级检测率，也不使用 CNN、YOLO、Transformer 或其他深度学习模型。
+Viola, P., & Jones, M. (2001). *Rapid Object Detection using a Boosted Cascade of Simple Features*. CVPR.
