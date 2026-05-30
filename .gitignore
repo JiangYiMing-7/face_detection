@@ -12,6 +12,8 @@ __pycache__/
 # 运行结果和实验产物
 results/
 image/
+projects/
+训练数据与可视化/
 
 # 大数据文件（通过微信群分享）
 .data_tmp/
