@@ -60,6 +60,7 @@ WF_QUOTA  = MAX_POSITIVES - LFW_QUOTA  # WIDER FACE 大脸占一半
 # 工具函数
 # ──────────────────────────────────────────────────────────
 def _progress(block_num, block_size, total_size):
+    """打印 urllib 下载进度条。"""
     downloaded = block_num * block_size
     if total_size > 0:
         pct = min(downloaded / total_size * 100, 100)
@@ -70,6 +71,7 @@ def _progress(block_num, block_size, total_size):
 
 
 def download(url: str, dest: Path, desc: str = "") -> bool:
+    """下载远程文件到本地临时目录，失败时删除残留文件。"""
     print(f"\n[下载] {desc or dest.name}")
     print(f"  URL : {url}")
     try:
@@ -96,6 +98,7 @@ def download(url: str, dest: Path, desc: str = "") -> bool:
 
 
 def extract_zip(zip_path: Path, dest: Path) -> None:
+    """解压 zip 文件到目标目录。"""
     print(f"[解压] {zip_path.name} -> {dest.name}/")
     dest.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(zip_path, "r") as zf:
@@ -103,6 +106,7 @@ def extract_zip(zip_path: Path, dest: Path) -> None:
 
 
 def count_images(d: Path) -> int:
+    """统计目录下常见图片格式文件数量。"""
     if not d.exists():
         return 0
     return sum(1 for f in d.rglob("*")
@@ -295,6 +299,7 @@ def prepare_positives(imgs_root: Path, annotations: list) -> list[str]:
 # 步骤 2：测试集 — WIDER FACE val 后半部分
 # ══════════════════════════════════════════════════════════
 def prepare_test_set(imgs_root: Path, annotations: list, used_for_train: set) -> None:
+    """从未用于训练的 WIDER FACE 图片中构建测试集和标注 JSON。"""
     existing = count_images(TEST_IMGS)
     ann_count = 0
     if TEST_ANN.exists():
@@ -402,6 +407,7 @@ def prepare_negatives(imgs_root: Path, annotations: list) -> None:
 # 主流程
 # ══════════════════════════════════════════════════════════
 def main() -> None:
+    """执行下载、裁剪正负样本、生成测试集的完整数据准备流程。"""
     print("=" * 62)
     print("  Viola-Jones 数据准备脚本")
     print("=" * 62)

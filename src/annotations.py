@@ -1,3 +1,5 @@
+"""Annotation loading utilities for evaluation datasets."""
+
 from __future__ import annotations
 
 import json
@@ -24,4 +26,3 @@ def load_annotations(path: str | Path) -> dict[str, list[tuple[int, int, int, in
     for image_name, boxes in items:
         annotations[str(image_name)] = [tuple(int(value) for value in box[:4]) for box in boxes]
     return annotations
-

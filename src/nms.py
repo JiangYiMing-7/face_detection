@@ -1,3 +1,5 @@
+"""Non-maximum suppression and bounding-box overlap helpers."""
+
 from __future__ import annotations
 
 
@@ -22,6 +24,7 @@ def non_max_suppression(boxes: list[tuple], threshold: float = 0.3) -> list[tupl
         return []
 
     def score(box: tuple) -> float:
+        """Prefer explicit detection score; otherwise use box area as fallback."""
         if len(box) >= 5:
             return float(box[4])
         return float(box[2] * box[3])

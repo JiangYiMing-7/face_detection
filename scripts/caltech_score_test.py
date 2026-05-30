@@ -1,3 +1,5 @@
+"""Sweep custom detector score thresholds on the prepared Caltech test split."""
+
 import sys, time
 sys.path.insert(0, ".")
 import cv2

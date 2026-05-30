@@ -1,3 +1,5 @@
+"""AdaBoost training primitives used by the custom Viola-Jones cascade."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -29,12 +31,14 @@ class WeakClassifier:
         return np.where(values > self.threshold, 1, -1)
 
     def predict_integral(self, integral: np.ndarray, x: int = 0, y: int = 0) -> int:
+        """在单张积分图的指定窗口位置预测 +1/-1。"""
         value = self.feature.value(integral, x, y)
         if self.polarity == 1:
             return 1 if value <= self.threshold else -1
         return 1 if value > self.threshold else -1
 
     def to_dict(self) -> dict:
+        """序列化弱分类器，供 JSON 模型文件保存。"""
         return {
             "feature": self.feature.to_dict(),
             "threshold": self.threshold,
@@ -45,6 +49,7 @@ class WeakClassifier:
 
     @classmethod
     def from_dict(cls, data: dict) -> "WeakClassifier":
+        """从 JSON 字典恢复弱分类器。"""
         return cls(
             feature=HaarFeature.from_dict(data["feature"]),
             threshold=float(data["threshold"]),
@@ -70,18 +75,22 @@ class StrongClassifier:
         return scores
 
     def predict_matrix(self, feature_matrix: np.ndarray) -> np.ndarray:
+        """把强分类器分数转换为 +1/-1 预测标签。"""
         return np.where(self.decision_function(feature_matrix) >= self.threshold, 1, -1)
 
     def score_integral(self, integral: np.ndarray, x: int = 0, y: int = 0) -> float:
+        """在单个窗口上累加所有弱分类器的加权得分。"""
         score = 0.0
         for weak in self.weak_classifiers:
             score += weak.alpha * weak.predict_integral(integral, x, y)
         return score
 
     def predict_integral(self, integral: np.ndarray, x: int = 0, y: int = 0) -> int:
+        """在单个窗口上输出强分类器预测标签。"""
         return 1 if self.score_integral(integral, x, y) >= self.threshold else -1
 
     def to_dict(self) -> dict:
+        """序列化强分类器及其包含的弱分类器。"""
         return {
             "threshold": self.threshold,
             "weak_classifiers": [weak.to_dict() for weak in self.weak_classifiers],
@@ -89,6 +98,7 @@ class StrongClassifier:
 
     @classmethod
     def from_dict(cls, data: dict) -> "StrongClassifier":
+        """从 JSON 字典恢复强分类器。"""
         return cls(
             weak_classifiers=[WeakClassifier.from_dict(item) for item in data["weak_classifiers"]],
             threshold=float(data.get("threshold", 0.0)),

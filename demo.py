@@ -33,6 +33,7 @@ from src.detectors import create_detector
 
 
 def parse_args() -> argparse.Namespace:
+    """解析双屏实时演示所需的摄像头、模型和后处理参数。"""
     p = argparse.ArgumentParser(description="实时人脸检测演示（双屏对比）")
     p.add_argument("--model", default="models/custom_cascade_v3_hnm.json",
                    help="自实现级联模型路径")
@@ -61,6 +62,7 @@ def parse_args() -> argparse.Namespace:
 class BoxSmoother:
     """时间平滑 + 跳变抑制：指数移动平均减少抖动，大幅跳变视为误检。"""
     def __init__(self, alpha: float = 0.4, max_lost: int = 5, max_jump: float = 0.4):
+        """初始化单目标框平滑器。"""
         self.alpha = alpha        # 平滑系数，越小越平滑
         self.max_lost = max_lost  # 连续多少帧没检测到就清空
         self.max_jump = max_jump  # 中心点跳变超过框尺寸的此比例则视为误检
@@ -68,6 +70,7 @@ class BoxSmoother:
         self.lost_count = 0
 
     def update(self, boxes: list) -> list:
+        """输入当前帧候选框，输出平滑后的主框列表。"""
         if not boxes:
             self.lost_count += 1
             if self.lost_count >= self.max_lost:
@@ -107,6 +110,7 @@ class TrackingBoxSmoother:
     """Temporal smoothing for multiple face boxes."""
 
     def __init__(self, alpha: float = 0.65, max_lost: int = 2, max_tracks: int = 8):
+        """初始化多目标轨迹平滑器。"""
         self.alpha = alpha
         self.max_lost = max_lost
         self.max_tracks = max_tracks
@@ -114,6 +118,7 @@ class TrackingBoxSmoother:
 
     @staticmethod
     def _center_distance(a: tuple, b: tuple) -> float:
+        """计算两个框中心点之间的距离。"""
         ax, ay, aw, ah = a
         bx, by, bw, bh = b
         acx, acy = ax + aw / 2, ay + ah / 2
@@ -122,6 +127,7 @@ class TrackingBoxSmoother:
 
     @staticmethod
     def _smooth(old_box: tuple, new_box: tuple, alpha: float) -> tuple:
+        """用指数移动平均把新检测框融合到旧轨迹框。"""
         sx, sy, sw, sh = old_box
         bx, by, bw, bh = new_box
         return (
@@ -133,12 +139,14 @@ class TrackingBoxSmoother:
 
     @staticmethod
     def _match_score(track_box: tuple, detection: tuple) -> float:
+        """综合 IoU 和中心距离，衡量检测框与已有轨迹的匹配程度。"""
         iou = box_iou(track_box, detection)
         dist = TrackingBoxSmoother._center_distance(track_box, detection)
         ref_size = max(track_box[2], track_box[3], detection[2], detection[3], 1)
         return iou - 0.25 * (dist / ref_size)
 
     def update(self, boxes: list) -> list:
+        """根据当前帧检测结果更新多目标轨迹并返回稳定框。"""
         detections = sorted(boxes, key=lambda b: b[2] * b[3], reverse=True)[: self.max_tracks]
         unmatched = set(range(len(detections)))
 
@@ -172,6 +180,7 @@ class TrackingBoxSmoother:
 
 
 def box_iou(a: tuple, b: tuple) -> float:
+    """计算两个框的 IoU。"""
     ax, ay, aw, ah = a[:4]
     bx, by, bw, bh = b[:4]
     x1 = max(ax, bx)
@@ -186,6 +195,7 @@ def box_iou(a: tuple, b: tuple) -> float:
 
 
 def center_in_expanded_box(box: tuple, reference: tuple, expand: float = 0.65) -> bool:
+    """判断候选框中心是否落在扩大后的参考框范围内。"""
     x, y, w, h = box[:4]
     rx, ry, rw, rh = reference[:4]
     cx, cy = x + w / 2, y + h / 2
@@ -198,6 +208,7 @@ def center_in_expanded_box(box: tuple, reference: tuple, expand: float = 0.65) -
 
 
 def filter_custom_boxes(custom_boxes: list, opencv_boxes: list, frame_shape: tuple) -> list:
+    """过滤越界、过小或与 OpenCV 调试门控不一致的自实现检测框。"""
     h, w = frame_shape[:2]
     filtered = []
     for box in custom_boxes:
@@ -218,6 +229,7 @@ def filter_custom_boxes(custom_boxes: list, opencv_boxes: list, frame_shape: tup
 
 
 def draw_detections(frame: np.ndarray, boxes: list, color: tuple, label: str) -> None:
+    """在半屏画面上绘制检测框和数量标签。"""
     for x, y, w, h in boxes:
         cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
     cv2.putText(frame, f"{label}: {len(boxes)} face(s)",
@@ -225,12 +237,14 @@ def draw_detections(frame: np.ndarray, boxes: list, color: tuple, label: str) ->
 
 
 def draw_fps(frame: np.ndarray, fps: float, color=(255, 255, 255)) -> None:
+    """在画面左下角绘制当前 FPS。"""
     cv2.putText(frame, f"FPS: {fps:.1f}",
                 (10, frame.shape[0] - 12),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2, cv2.LINE_AA)
 
 
 def put_title(frame: np.ndarray, title: str, color: tuple) -> None:
+    """在半屏底部绘制检测器标题。"""
     h, w = frame.shape[:2]
     cv2.putText(frame, title,
                 (w // 2 - len(title) * 7, h - 12),
@@ -238,6 +252,7 @@ def put_title(frame: np.ndarray, title: str, color: tuple) -> None:
 
 
 def main() -> None:
+    """运行 OpenCV 与自实现 cascade 的双屏实时对比演示。"""
     args = parse_args()
 
     # ── 加载检测器 ──────────────────────────────────────────

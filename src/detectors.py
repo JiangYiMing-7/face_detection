@@ -1,3 +1,5 @@
+"""Detector adapters used by the demo and evaluation entry points."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -32,6 +34,7 @@ class OpenCVHaarDetector:
     name = "opencv"
 
     def __init__(self) -> None:
+        """加载 OpenCV 自带的正脸 Haar cascade XML 文件。"""
         paths = [
             haarcascade_path("haarcascade_frontalface_default.xml"),
             haarcascade_path("haarcascade_frontalface_alt2.xml"),
@@ -44,6 +47,7 @@ class OpenCVHaarDetector:
             self.classifiers.append(classifier)
 
     def detect(self, frame, options: dict) -> tuple:
+        """运行 OpenCV 基线检测器，返回灰度图和去重后的人脸框。"""
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if options.get("equalize"):
             gray = cv2.equalizeHist(gray)
@@ -67,6 +71,7 @@ class CustomCascadeDetector:
     name = "custom"
 
     def __init__(self, model_path: str | Path) -> None:
+        """从磁盘加载本项目训练出的 JSON cascade 模型。"""
         self.model_path = Path(model_path)
         if not self.model_path.exists():
             raise FileNotFoundError(
@@ -76,6 +81,7 @@ class CustomCascadeDetector:
         self.cascade = CascadeClassifier.load(self.model_path)
 
     def detect(self, frame, options: dict) -> tuple:
+        """运行自训练 cascade，并按演示界面参数做预处理和后处理。"""
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         if options.get("clahe"):
             clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
@@ -98,6 +104,7 @@ class CustomCascadeDetector:
 
 
 def create_detector(name: str, model_path: str | Path = "models/custom_cascade.json"):
+    """按名称创建 OpenCV 基线检测器或自训练 cascade 检测器。"""
     if name == "opencv":
         return OpenCVHaarDetector()
     if name == "custom":

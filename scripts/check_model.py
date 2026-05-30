@@ -1,3 +1,5 @@
+"""Print cascade stage counts and thresholds for selected JSON models."""
+
 import json
 for mname in ["custom_cascade_v1_no_hnm.json", "custom_cascade_v3_hnm.json"]:
     m = json.load(open(f"models/{mname}"))

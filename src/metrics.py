@@ -1,3 +1,5 @@
+"""Evaluation metrics for face-detection bounding boxes."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass

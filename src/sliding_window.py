@@ -1,3 +1,5 @@
+"""Sliding-window multi-scale detection for the custom cascade model."""
+
 from __future__ import annotations
 
 import cv2
@@ -202,6 +204,7 @@ def _cluster_weighted_merge(
     from .nms import intersection_over_union
 
     def center_distance(a: tuple, b: tuple) -> float:
+        """计算两个候选框中心点之间的欧氏距离。"""
         ax, ay, aw, ah = a[:4]
         bx, by, bw, bh = b[:4]
         acx, acy = ax + aw / 2, ay + ah / 2
@@ -209,6 +212,7 @@ def _cluster_weighted_merge(
         return float(((acx - bcx) ** 2 + (acy - bcy) ** 2) ** 0.5)
 
     def containment(a: tuple, b: tuple) -> float:
+        """计算交集占较小候选框面积的比例。"""
         ax, ay, aw, ah = a[:4]
         bx, by, bw, bh = b[:4]
         x1, y1 = max(ax, bx), max(ay, by)
@@ -217,6 +221,7 @@ def _cluster_weighted_merge(
         return inter / max(1, min(aw * ah, bw * bh))
 
     def same_face_cluster(a: tuple, b: tuple) -> bool:
+        """判断两个框是否足够接近，可以归为同一张脸。"""
         area_a = a[2] * a[3]
         area_b = b[2] * b[3]
         ref_size = max(a[2], a[3], b[2], b[3], 1)

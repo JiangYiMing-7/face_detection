@@ -1,3 +1,5 @@
+"""Haar-like feature definitions, generation, computation, and visualization."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -82,6 +84,7 @@ class HaarFeature:
         return total
 
     def to_dict(self) -> dict:
+        """把 Haar 特征转换成 JSON 可序列化的字典。"""
         return {
             "kind": self.kind,
             "x": self.x,
@@ -92,6 +95,7 @@ class HaarFeature:
 
     @classmethod
     def from_dict(cls, data: dict) -> "HaarFeature":
+        """从 JSON 字典恢复 Haar 特征对象。"""
         return cls(
             kind=str(data["kind"]),
             x=int(data["x"]),

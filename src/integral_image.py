@@ -1,3 +1,5 @@
+"""Integral-image routines used to evaluate Haar rectangles in O(1) time."""
+
 from __future__ import annotations
 
 import numpy as np

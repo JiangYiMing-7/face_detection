@@ -1,3 +1,5 @@
+"""Cascade classifier container and JSON persistence helpers."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -59,6 +61,7 @@ class CascadeClassifier:
         return True, score
 
     def to_dict(self) -> dict:
+        """把级联模型转换成可写入 JSON 的纯 Python 字典。"""
         return {
             "type": "teaching_viola_jones_cascade",
             "window_size": self.window_size,
@@ -68,6 +71,7 @@ class CascadeClassifier:
 
     @classmethod
     def from_dict(cls, data: dict) -> "CascadeClassifier":
+        """从 JSON 字典恢复级联分类器对象。"""
         return cls(
             stages=[StrongClassifier.from_dict(item) for item in data.get("stages", [])],
             window_size=int(data.get("window_size", 24)),
@@ -82,6 +86,7 @@ class CascadeClassifier:
 
     @classmethod
     def load(cls, path: str | Path) -> "CascadeClassifier":
+        """从 JSON 文件加载训练好的 cascade 模型。"""
         data = json.loads(Path(path).read_text(encoding="utf-8"))
         return cls.from_dict(data)
 

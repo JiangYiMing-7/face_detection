@@ -1,3 +1,5 @@
+"""Interactive single-detector face-detection demo with optional OpenCV controls."""
+
 from __future__ import annotations
 
 import argparse
@@ -17,6 +19,7 @@ CONTROL_WINDOW = "Controls"
 
 
 def parse_args() -> argparse.Namespace:
+    """解析交互式演示脚本的命令行参数。"""
     parser = argparse.ArgumentParser(description="Real-time face detection with OpenCV or a custom cascade.")
     parser.add_argument("--source", default="0", help="Camera index such as 0, or a video/image path. Default: 0")
     parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv", help="Detector backend.")
@@ -66,6 +69,7 @@ def open_source(source: str, width: int, height: int):
 
 
 def ensure_output_dirs():
+    """创建截图、人脸裁剪和运行日志输出目录。"""
     root = Path("results")
     screenshots = root / "screenshots"
     faces = root / "faces"
@@ -109,6 +113,7 @@ def read_controls(args: argparse.Namespace) -> dict:
 
 
 def static_options(args: argparse.Namespace) -> dict:
+    """在无显示模式或单张图片模式下生成固定检测参数。"""
     return {
         "detector": args.detector,
         "scale_factor": args.scale_factor,
@@ -123,6 +128,7 @@ def static_options(args: argparse.Namespace) -> dict:
 
 
 def load_eye_classifier():
+    """加载 OpenCV 眼睛检测器，用于在人脸框内做辅助标记。"""
     path = haarcascade_path("haarcascade_eye.xml")
     classifier = cv2.CascadeClassifier(path)
     if classifier.empty():
@@ -131,6 +137,7 @@ def load_eye_classifier():
 
 
 def detect_eyes(gray, faces, eye_classifier, enabled: bool):
+    """在每个人脸 ROI 内检测最多两个眼睛框。"""
     if not enabled:
         return []
 
@@ -150,6 +157,7 @@ def detect_eyes(gray, faces, eye_classifier, enabled: bool):
 
 
 def blur_faces(frame, faces) -> None:
+    """对检测到的人脸区域做高斯模糊，演示隐私遮挡效果。"""
     for x, y, w, h in faces:
         roi = frame[y : y + h, x : x + w]
         if roi.size == 0:
@@ -189,6 +197,7 @@ def draw_overlay(frame, faces, eyes_by_face, fps: float, options: dict) -> None:
 
 
 def save_face_crops(frame, faces, faces_dir: Path) -> int:
+    """把当前帧中的人脸裁剪保存到 results/faces。"""
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     saved = 0
     for index, (x, y, w, h) in enumerate(faces, start=1):
@@ -201,6 +210,7 @@ def save_face_crops(frame, faces, faces_dir: Path) -> int:
 
 
 def write_log_header(log_path: Path):
+    """创建 CSV 日志文件，并写入统一表头。"""
     handle = log_path.open("w", newline="", encoding="utf-8")
     writer = csv.writer(handle)
     writer.writerow(
@@ -233,6 +243,7 @@ def run_detection(detector, frame, eye_classifier, options: dict, fps: float):
 
 
 def main() -> None:
+    """运行实时或单图检测演示主循环。"""
     args = resolve_defaults(parse_args())
     screenshots_dir, faces_dir, logs_dir = ensure_output_dirs()
 

@@ -1,3 +1,5 @@
+"""Evaluate OpenCV and custom face detectors on annotated image folders."""
+
 from __future__ import annotations
 
 import argparse
@@ -17,6 +19,7 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 
 def parse_args() -> argparse.Namespace:
+    """解析评估脚本参数，包括检测器、数据集路径和后处理阈值。"""
     parser = argparse.ArgumentParser(description="Evaluate OpenCV or custom face detector on annotated images.")
     parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv")
     parser.add_argument("--model", default="models/custom_cascade_v3_hnm.json", help="Custom cascade model path.")
@@ -39,6 +42,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def image_paths(directory: str | Path) -> list[Path]:
+    """递归列出待评估目录中的图片文件。"""
     root = Path(directory)
     return sorted(path for path in root.rglob("*") if path.suffix.lower() in IMAGE_SUFFIXES)
 

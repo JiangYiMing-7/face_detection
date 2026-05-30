@@ -30,6 +30,7 @@ CATEGORIES = [
 
 
 def parse_args() -> argparse.Namespace:
+    """解析 Caltech 数据集根目录和输出目录参数。"""
     p = argparse.ArgumentParser(description="Prepare Caltech-101 face test set.")
     p.add_argument("--output-dir", default="data/test/caltech",
                    help="输出目录（图片+标注）")
@@ -60,6 +61,7 @@ def read_box(mat_path: Path) -> tuple[int, int, int, int] | None:
 
 
 def main() -> None:
+    """把 Caltech 图片和 .mat 标注转换为项目统一测试集格式。"""
     args = parse_args()
     root = Path(args.caltech_root)
     out_dir = Path(args.output_dir)

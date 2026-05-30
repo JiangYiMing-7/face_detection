@@ -1,3 +1,5 @@
+"""Train the custom teaching-oriented Viola-Jones cascade model."""
+
 from __future__ import annotations
 
 import argparse
@@ -17,6 +19,7 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 
 def parse_stage_sizes(raw: str) -> list[int]:
+    """把形如 '10,20,40' 的参数解析为每级弱分类器数量列表。"""
     values = [int(item.strip()) for item in raw.split(",") if item.strip()]
     if not values or any(value <= 0 for value in values):
         raise argparse.ArgumentTypeError("stage sizes must be positive integers such as 10,20,40")
@@ -24,6 +27,7 @@ def parse_stage_sizes(raw: str) -> list[int]:
 
 
 def parse_args() -> argparse.Namespace:
+    """解析训练脚本的命令行参数。"""
     parser = argparse.ArgumentParser(description="Train a teaching-oriented Viola-Jones cascade.")
     parser.add_argument("--positive-dir", default="data/train/positives", help="Directory of face crop images.")
     parser.add_argument("--negative-dir", default="data/train/negatives", help="Directory of non-face images.")
@@ -55,6 +59,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def image_paths(directory: str | Path) -> list[Path]:
+    """递归列出目录下支持格式的图片文件。"""
     root = Path(directory)
     if not root.exists():
         return []
@@ -62,6 +67,7 @@ def image_paths(directory: str | Path) -> list[Path]:
 
 
 def read_gray(path: Path) -> np.ndarray | None:
+    """以灰度模式读取图片，读取失败时返回 None。"""
     image = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
     if image is None or image.size == 0:
         return None
@@ -239,6 +245,7 @@ def choose_stage_threshold(
 
 
 def save_training_log(rows: list[dict], output_model: Path) -> None:
+    """保存每级训练指标，供后续报告画图和误差分析使用。"""
     log_dir = Path("results/logs")
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "custom_training_log.csv"

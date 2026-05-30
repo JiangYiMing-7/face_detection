@@ -1,3 +1,5 @@
+"""Helpers for locating OpenCV Haar cascade XML files across environments."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -42,8 +44,8 @@ def haarcascade_dir() -> Path:
 
 
 def haarcascade_path(filename: str) -> str:
+    """Return an absolute path to a named OpenCV Haar cascade XML file."""
     path = haarcascade_dir() / filename
     if not path.exists():
         raise RuntimeError(f"OpenCV Haar cascade file not found: {path}")
     return str(path)
-
