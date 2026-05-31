@@ -6,8 +6,8 @@
 
 | 检测器 | LFW F1 | 说明 |
 |--------|--------|------|
-| OpenCV Haar Cascade | 0.963 | 预训练基线 |
-| **自实现 v6.1** | **1.000** | 零漏检、零误报 |
+| OpenCV Haar Cascade | 0.980 | 预训练基线，Recall=0.960 |
+| **自实现 v6.1** | **1.000** | LFW 常规操作点零漏检、零误报 |
 
 ## 项目结构
 
@@ -31,9 +31,9 @@ custom/
 │   ├── metrics.py            # P/R/F1 评估指标
 │   └── annotations.py        # 标注文件解析
 ├── models/                   # 训练好的级联模型（JSON）
-│   ├── custom_cascade_v3_hnm.json      # v3: 8级/70弱分类器
+│   ├── custom_cascade_v3_hnm.json      # v3: 8级/230弱分类器
 │   ├── custom_cascade_v6_full.json     # v6: 10级/525弱 (x4增强)
-│   └── custom_cascade_v6_full_1.json   # v6.1: 10级/517弱 (x7增强) ★
+│   └── custom_cascade_v6_full_1.json   # v6.1: 10级/525弱 (x7增强) ★
 ├── data/
 │   ├── train/negatives/      # 负样本图片（300张）
 │   └── test_lfw/             # LFW 测试集（200张 + annotations）
@@ -56,17 +56,35 @@ pip install -r requirements.txt
 # 在 LFW 上评估 v6.1 模型（F1=1.000）
 python evaluate.py --detector custom \
   --model models/custom_cascade_v6_full_1.json \
-  --test-dir data/test_lfw \
-  --min-neighbors 10 --clahe
+  --image-dir data/test_lfw/images \
+  --annotations data/test_lfw/annotations.json \
+  --min-neighbors 5 \
+  --min-size 100 \
+  --output-dir results/eval_lfw_v61
 
 # 评估 v3 模型
 python evaluate.py --detector custom \
   --model models/custom_cascade_v3_hnm.json \
-  --test-dir data/test_lfw \
-  --min-neighbors 5
+  --image-dir data/test_lfw/images \
+  --annotations data/test_lfw/annotations.json \
+  --min-neighbors 5 \
+  --min-size 100 \
+  --output-dir results/eval_lfw_v3
 
 # OpenCV 基线
-python evaluate.py --detector opencv --test-dir data/test_lfw
+python evaluate.py --detector opencv \
+  --image-dir data/test_lfw/images \
+  --annotations data/test_lfw/annotations.json \
+  --output-dir results/eval_lfw_opencv
+
+# 更严格的 LFW 操作点（更多小窗口，更考验误检抑制）
+python evaluate.py --detector custom \
+  --model models/custom_cascade_v6_full_1.json \
+  --image-dir data/test_lfw/images \
+  --annotations data/test_lfw/annotations.json \
+  --min-neighbors 5 \
+  --min-size 60 \
+  --output-dir results/eval_lfw_strict_v61
 ```
 
 ### 2. 实时摄像头演示
@@ -101,13 +119,19 @@ python train.py \
   --negative-dir data/train/negatives \
   --output models/my_cascade.json \
   --max-features 20000 \
-  --stage-sizes 10,20,40
+  --max-positives 1000 \
+  --stage-sizes 5,10,15,20,30,40,50,60 \
+  --augment
 
-# 训练 v6 级别模型（需要 3000+ 正样本）
+# 训练 v6.1 级别模型（需要 3000+ 正样本）
 python train_v6.py \
   --positive-dir data/train/positives \
   --negative-dir data/train/negatives \
-  --output models/my_cascade_v6.json
+  --output models/my_cascade_v61.json \
+  --max-features 20000 \
+  --max-positives 3000 \
+  --stage-sizes 10,15,20,30,40,50,60,80,100,120 \
+  --augment
 ```
 
 ## 算法亮点
@@ -128,7 +152,7 @@ python train_v6.py \
 
 ### CLAHE 预处理
 
-可选的自适应直方图均衡化，提升光照不均场景下的检测稳定性。
+可选的自适应直方图均衡化。实验中它对较弱的 v3 模型有帮助，但对 v6/v6.1 会放大背景纹理并增加误报；最终 v6.1 默认关闭 CLAHE。
 
 ### x7 数据增强（v6.1）
 
@@ -136,11 +160,13 @@ python train_v6.py \
 
 ## 模型对比
 
-| 模型 | 正样本 | 增强 | 级联 | LFW F1 |
-|------|--------|------|------|--------|
-| v3 | 1000 | x4 | 8级/70弱 | 0.983 |
-| v6 | 3000 | x4 | 10级/525弱 | 0.9975 |
-| **v6.1** | **3000** | **x7** | **10级/517弱** | **1.000** |
+| 模型 | 正样本 | 增强 | Haar 特征候选 | 级联 | LFW 常规 F1 | LFW 严格 F1 |
+|------|--------|------|----------------|------|-------------|-------------|
+| v3 | 1000 | x4 | 20000 | 8级/230弱 | 1.000 | 0.919 |
+| v6 | 3000 | x4 | 20000 | 10级/525弱 | 1.000 | 0.964 |
+| **v6.1** | **3000** | **x7** | **20000** | **10级/525弱** | **1.000** | **0.959** |
+
+说明：LFW 常规操作点使用 `min_size=100, min_neighbors=5`；严格操作点使用 `min_size=60, min_neighbors=5`，候选窗口更多，更能暴露误检抑制能力。
 
 ## 参考文献
 
