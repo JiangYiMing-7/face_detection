@@ -12,14 +12,23 @@ from .nms import non_max_suppression
 from .sliding_window import detect_multiscale
 
 
-def _expand_boxes(boxes: list[tuple[int, int, int, int]], frame_shape: tuple) -> list[tuple[int, int, int, int]]:
-    """把自实现检测器偏紧的检测框扩展为更完整的人脸区域。"""
+def _expand_boxes(
+    boxes: list[tuple[int, int, int, int]],
+    frame_shape: tuple,
+    pad_x_ratio: float = 0.06,
+    pad_top_ratio: float = 0.05,
+    pad_bottom_ratio: float = 0.18,
+) -> list[tuple[int, int, int, int]]:
+    """把自实现检测器偏紧的检测框扩展为更完整的人脸区域。
+
+    pad_* 比例默认与评估保持一致；演示界面可传入更大的下扩比例框住下巴。
+    """
     height, width = frame_shape[:2]
     expanded = []
     for x, y, w, h in boxes:
-        pad_x = int(round(w * 0.06))
-        pad_top = int(round(h * 0.05))
-        pad_bottom = int(round(h * 0.18))
+        pad_x = int(round(w * pad_x_ratio))
+        pad_top = int(round(h * pad_top_ratio))
+        pad_bottom = int(round(h * pad_bottom_ratio))
         x1 = max(0, x - pad_x)
         y1 = max(0, y - pad_top)
         x2 = min(width, x + w + pad_x)
@@ -99,7 +108,13 @@ class CustomCascadeDetector:
             score_threshold=float(options.get("score_threshold", 0.0)),
             variance_normalize=bool(options.get("variance_normalize", True)),
         )
-        faces = _expand_boxes(faces, frame.shape)
+        faces = _expand_boxes(
+            faces,
+            frame.shape,
+            pad_x_ratio=float(options.get("pad_x_ratio", 0.06)),
+            pad_top_ratio=float(options.get("pad_top_ratio", 0.05)),
+            pad_bottom_ratio=float(options.get("pad_bottom_ratio", 0.18)),
+        )
         return gray, faces
 
 

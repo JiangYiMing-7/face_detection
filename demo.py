@@ -62,6 +62,14 @@ def parse_args() -> argparse.Namespace:
                    help="累积分数阈值（v3建议5.0，v6建议0）")
     p.add_argument("--opencv-gate", action="store_true",
                    help="仅把 OpenCV 基线作为自实现检测框的可选调试门控。")
+    p.add_argument("--pad-bottom", type=float, default=0.28,
+                   help="检测框向下扩展比例（框住下巴，演示默认0.28）")
+    p.add_argument("--pad-top", type=float, default=0.08,
+                   help="检测框向上扩展比例（框住额头）")
+    p.add_argument("--pad-x", type=float, default=0.10,
+                   help="检测框左右扩展比例")
+    p.add_argument("--smooth-alpha", type=float, default=0.5,
+                   help="时间平滑系数（越小越稳但越滞后，越大越跟手）")
     return p.parse_args()
 
 
@@ -293,6 +301,9 @@ def main() -> None:
         "variance_normalize": args.variance_normalize,
         "min_neighbors": args.min_neighbors_custom,
         "score_threshold": args.score_threshold,
+        "pad_x_ratio": args.pad_x,
+        "pad_top_ratio": args.pad_top,
+        "pad_bottom_ratio": args.pad_bottom,
     }
 
     # ── 打开摄像头 ──────────────────────────────────────────
@@ -320,7 +331,7 @@ def main() -> None:
     fps_smooth = 30.0
     paused = False
     frame_cache = None
-    custom_smoother = TrackingBoxSmoother(alpha=0.65, max_lost=2, max_tracks=8)
+    custom_smoother = TrackingBoxSmoother(alpha=args.smooth_alpha, max_lost=3, max_tracks=8)
 
     while True:
         key = cv2.waitKey(1) & 0xFF
