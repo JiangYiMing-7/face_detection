@@ -1,4 +1,4 @@
-"""Sliding-window multi-scale detection for the custom cascade model."""
+"""自实现 cascade 模型的滑窗多尺度检测流程。"""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ def _window_stds(
 ) -> np.ndarray:
     """用积分图和平方积分图批量计算各滑窗的像素标准差。
 
-    Std = sqrt(E[x²] - E[x]²)，结果用于方差归一化——与训练时 normalize_window 保持一致。
+    标准差 = sqrt(E[x²] - E[x]²)，结果用于方差归一化，与训练时 normalize_window 保持一致。
     """
     from .integral_image import rect_sums_at
 
@@ -156,7 +156,7 @@ def _score_weighted_merge(
 
     from .nms import intersection_over_union
 
-    # Step 1: NMS 选出候选锚点（高分优先，IoU>0.3 的重叠框被抑制）
+    # 第 1 步：NMS 选出候选锚点（高分优先，IoU>0.3 的重叠框被抑制）
     sorted_boxes = sorted(boxes, key=lambda b: b[4], reverse=True)
     anchors = []
     for box in sorted_boxes:
@@ -165,14 +165,14 @@ def _score_weighted_merge(
 
     results = []
     for anchor in anchors:
-        # Step 2: 找所有与锚点重叠度 >= iou_merge 的原始框
+        # 第 2 步：找所有与锚点重叠度 >= iou_merge 的原始框
         neighbors = [b for b in boxes if intersection_over_union(anchor, b) >= iou_merge]
 
-        # Step 3: 邻居不够多就丢弃
+        # 第 3 步：邻居不够多就丢弃
         if len(neighbors) < min_count:
             continue
 
-        # Step 4: 分数加权平均微调位置
+        # 第 4 步：分数加权平均微调位置
         min_score = min(b[4] for b in neighbors)
         weights = [max(b[4] - min_score + 1e-3, 1e-3) for b in neighbors]
         total_weight = sum(weights)
@@ -192,11 +192,10 @@ def _cluster_weighted_merge(
     iou_merge: float = 0.18,
     min_count: int = 2,
 ) -> list[tuple[int, int, int, int, float]]:
-    """Merge duplicate windows before NMS.
+    """在 NMS 前先合并重复滑窗。
 
-    Adjacent scales often produce several boxes for the same face. IoU alone is
-    not enough when one box is slightly larger or shifted, so this also merges
-    boxes that contain each other or have close centers and similar sizes.
+    相邻尺度经常会为同一张脸产生多个检测框。单独使用 IoU 不足以处理
+    尺寸略大或位置略偏的情况，因此这里也合并互相包含、中心接近且尺寸相近的框。
     """
     if not boxes:
         return []
@@ -253,9 +252,8 @@ def _cluster_weighted_merge(
         cx = sum((box[0] + box[2] / 2) * weight for box, weight in zip(cluster, weights, strict=False)) / total_weight
         cy = sum((box[1] + box[3] / 2) * weight for box, weight in zip(cluster, weights, strict=False)) / total_weight
 
-        # Do not average the size downward. High-score inner-face windows can be
-        # smaller than the visual face, so keep a large representative size from
-        # the cluster and let NMS remove remaining duplicates.
+        # 不把尺寸向小框平均。高分内部人脸窗口可能小于视觉上的完整人脸，
+        # 因此从簇里保留较大的代表尺寸，再交给 NMS 去掉剩余重复框。
         sorted_widths = sorted(box[2] for box in cluster)
         sorted_heights = sorted(box[3] for box in cluster)
         size_index = max(0, int(round(0.75 * (len(cluster) - 1))))

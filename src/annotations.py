@@ -1,4 +1,4 @@
-"""Annotation loading utilities for evaluation datasets."""
+"""评估数据集标注读取工具。"""
 
 from __future__ import annotations
 
@@ -7,9 +7,9 @@ from pathlib import Path
 
 
 def load_annotations(path: str | Path) -> dict[str, list[tuple[int, int, int, int]]]:
-    """Load simple face-box annotations from JSON.
+    """从 JSON 读取简化的人脸框标注。
 
-    Supported formats:
+    支持两种格式：
     1. {"image.jpg": [[x, y, w, h], ...]}
     2. [{"image": "image.jpg", "boxes": [[x, y, w, h], ...]}, ...]
     """

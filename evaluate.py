@@ -1,4 +1,4 @@
-"""Evaluate OpenCV and custom face detectors on annotated image folders."""
+"""在带标注的图片目录上评估 OpenCV 与自实现人脸检测器。"""
 
 from __future__ import annotations
 
@@ -20,9 +20,9 @@ IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 
 def parse_args() -> argparse.Namespace:
     """解析评估脚本参数，包括检测器、数据集路径和后处理阈值。"""
-    parser = argparse.ArgumentParser(description="Evaluate OpenCV or custom face detector on annotated images.")
+    parser = argparse.ArgumentParser(description="在带标注图片上评估 OpenCV 或自实现人脸检测器。")
     parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv")
-    parser.add_argument("--model", default="models/custom_cascade_v3_hnm.json", help="Custom cascade model path.")
+    parser.add_argument("--model", default="models/custom_cascade_v3_hnm.json", help="自训练 cascade 模型路径。")
     parser.add_argument("--image-dir", default="data/test/images")
     parser.add_argument("--annotations", default="data/test/annotations.json")
     parser.add_argument("--output-dir", default="results/eval")

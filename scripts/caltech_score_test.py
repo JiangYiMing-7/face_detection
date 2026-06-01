@@ -1,4 +1,4 @@
-"""Sweep custom detector score thresholds on the prepared Caltech test split."""
+"""在已整理的 Caltech 测试集上扫描自实现检测器的分数阈值。"""
 
 import sys, time
 sys.path.insert(0, ".")

@@ -1,2 +1,1 @@
-"""Teaching-oriented Viola-Jones face detection components."""
-
+"""面向课程教学实现的 Viola-Jones 人脸检测组件。"""

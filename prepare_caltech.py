@@ -31,7 +31,7 @@ CATEGORIES = [
 
 def parse_args() -> argparse.Namespace:
     """解析 Caltech 数据集根目录和输出目录参数。"""
-    p = argparse.ArgumentParser(description="Prepare Caltech-101 face test set.")
+    p = argparse.ArgumentParser(description="整理 Caltech-101 人脸测试集。")
     p.add_argument("--output-dir", default="data/test/caltech",
                    help="输出目录（图片+标注）")
     p.add_argument("--caltech-root", default=str(CALTECH_ROOT),
@@ -87,7 +87,7 @@ def main() -> None:
 
         for img_path in img_files:
             # 解析序号，例如 image_0001.jpg → 0001
-            stem = img_path.stem  # e.g. "image_0001"
+            stem = img_path.stem  # 例如 "image_0001"
             number = stem.split("_")[-1]  # "0001"
 
             # 查找对应标注 .mat 文件

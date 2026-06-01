@@ -1,4 +1,4 @@
-"""Integral-image routines used to evaluate Haar rectangles in O(1) time."""
+"""用于 O(1) 计算 Haar 矩形区域和的积分图工具。"""
 
 from __future__ import annotations
 

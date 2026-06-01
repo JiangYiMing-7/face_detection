@@ -1,4 +1,4 @@
-"""Evaluation metrics for face-detection bounding boxes."""
+"""人脸检测框的评估指标工具。"""
 
 from __future__ import annotations
 

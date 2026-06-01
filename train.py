@@ -1,4 +1,4 @@
-"""Train the custom teaching-oriented Viola-Jones cascade model."""
+"""训练面向课程教学实现的自定义 Viola-Jones cascade 模型。"""
 
 from __future__ import annotations
 
@@ -22,27 +22,27 @@ def parse_stage_sizes(raw: str) -> list[int]:
     """把形如 '10,20,40' 的参数解析为每级弱分类器数量列表。"""
     values = [int(item.strip()) for item in raw.split(",") if item.strip()]
     if not values or any(value <= 0 for value in values):
-        raise argparse.ArgumentTypeError("stage sizes must be positive integers such as 10,20,40")
+        raise argparse.ArgumentTypeError("stage sizes 必须是正整数列表，例如 10,20,40")
     return values
 
 
 def parse_args() -> argparse.Namespace:
     """解析训练脚本的命令行参数。"""
-    parser = argparse.ArgumentParser(description="Train a teaching-oriented Viola-Jones cascade.")
-    parser.add_argument("--positive-dir", default="data/train/positives", help="Directory of face crop images.")
-    parser.add_argument("--negative-dir", default="data/train/negatives", help="Directory of non-face images.")
-    parser.add_argument("--output", default="models/custom_cascade.json", help="Path to save the trained model.")
-    parser.add_argument("--window-size", type=int, default=24, help="Training window size. Default: 24")
-    parser.add_argument("--max-features", type=int, default=8000, help="Number of sampled Haar features. Default: 8000")
+    parser = argparse.ArgumentParser(description="训练面向课程教学实现的 Viola-Jones cascade。")
+    parser.add_argument("--positive-dir", default="data/train/positives", help="人脸 crop 图片目录。")
+    parser.add_argument("--negative-dir", default="data/train/negatives", help="非人脸图片目录。")
+    parser.add_argument("--output", default="models/custom_cascade.json", help="训练模型保存路径。")
+    parser.add_argument("--window-size", type=int, default=24, help="训练窗口尺寸。默认：24")
+    parser.add_argument("--max-features", type=int, default=8000, help="采样 Haar 特征数量。默认：8000")
     parser.add_argument("--stage-sizes", type=parse_stage_sizes, default=parse_stage_sizes("10,20,40"))
-    parser.add_argument("--max-positives", type=int, default=1000, help="Maximum positive crops to load.")
-    parser.add_argument("--negative-samples", type=int, default=2500, help="Total negative patches sampled.")
-    parser.add_argument("--negatives-per-image", type=int, default=20, help="Random negative patches per source image.")
-    parser.add_argument("--active-negatives", type=int, default=1200, help="Negative patches used in each stage.")
-    parser.add_argument("--stage-detection-rate", type=float, default=0.995, help="Training positive pass-rate target per stage.")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed.")
-    parser.add_argument("--feature-batch-size", type=int, default=512, help="Feature training batch size.")
-    parser.add_argument("--augment", action="store_true", help="对正样本做翻转+亮度增强（×3 数量）。")
+    parser.add_argument("--max-positives", type=int, default=1000, help="最多读取的正样本 crop 数量。")
+    parser.add_argument("--negative-samples", type=int, default=2500, help="采样负样本 patch 总数。")
+    parser.add_argument("--negatives-per-image", type=int, default=20, help="每张来源图片随机采样的负样本 patch 数。")
+    parser.add_argument("--active-negatives", type=int, default=1200, help="每个 stage 使用的负样本 patch 数。")
+    parser.add_argument("--stage-detection-rate", type=float, default=0.995, help="每个 stage 的正样本通过率目标。")
+    parser.add_argument("--seed", type=int, default=42, help="随机种子。")
+    parser.add_argument("--feature-batch-size", type=int, default=512, help="特征训练批大小。")
+    parser.add_argument("--augment", action="store_true", help="对正样本做翻转和亮度增强（原图+3种增强，合计×4）。")
     parser.add_argument("--no-hnm", action="store_true", help="禁用 Hard Negative Mining，只用固定负样本池。")
     parser.add_argument("--fp-constraint", action="store_true",
                         help="启用 FP 率约束（每级阈值同时约束 ≤50%% FP 率）。不启用时只约束检测率，适合配合 min_neighbors 后处理。")
@@ -81,7 +81,7 @@ def normalize_window(gray: np.ndarray, window_size: int) -> np.ndarray:
 
 
 def augment_windows(windows: np.ndarray, rng: np.random.Generator) -> np.ndarray:
-    """数据增强：水平翻转 + 亮度扰动，正样本量 ×3。
+    """数据增强：水平翻转 + 亮度扰动，正样本量合计 ×4。
 
     - 水平翻转：模拟不同朝向的正脸（左右对称）
     - 亮度扰动：×0.82 和 ×1.18，模拟不同光照条件

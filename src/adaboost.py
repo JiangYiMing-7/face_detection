@@ -1,4 +1,4 @@
-"""AdaBoost training primitives used by the custom Viola-Jones cascade."""
+"""自实现 Viola-Jones cascade 使用的 AdaBoost 训练基础组件。"""
 
 from __future__ import annotations
 

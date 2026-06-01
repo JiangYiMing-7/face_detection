@@ -1,4 +1,4 @@
-"""Detector adapters used by the demo and evaluation entry points."""
+"""演示和评估入口复用的检测器适配层。"""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from .sliding_window import detect_multiscale
 
 
 def _expand_boxes(boxes: list[tuple[int, int, int, int]], frame_shape: tuple) -> list[tuple[int, int, int, int]]:
-    """Map tight custom detections to a fuller face region."""
+    """把自实现检测器偏紧的检测框扩展为更完整的人脸区域。"""
     height, width = frame_shape[:2]
     expanded = []
     for x, y, w, h in boxes:

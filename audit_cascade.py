@@ -12,15 +12,15 @@ from src.cascade import CascadeClassifier
 from src.haar_features import generate_haar_features, compute_feature_matrix
 from src.integral_image import compute_integral_image
 
-# ===== 1. 加载模型，检查每一级的阈值和alpha范围 =====
+# ===== 1. 加载模型，检查每一级的阈值和 alpha 范围 =====
 cascade = CascadeClassifier.load("models/custom_cascade_v3_hnm.json")
 print("="*60)
 print("1. 模型结构分析")
 print("="*60)
 for i, stage in enumerate(cascade.stages):
     alphas = [w.alpha for w in stage.weak_classifiers]
-    max_score = sum(alphas)  # 所有 weak 都预测 +1 时的最大分
-    min_score = -sum(alphas)  # 所有 weak 都预测 -1 时的最小分
+    max_score = sum(alphas)  # 所有弱分类器都预测 +1 时的最大分
+    min_score = -sum(alphas)  # 所有弱分类器都预测 -1 时的最小分
     print(f"  Stage {i+1}: {len(stage.weak_classifiers)} weaks, "
           f"threshold={stage.threshold:.4f}, "
           f"score_range=[{min_score:.2f}, {max_score:.2f}], "
@@ -40,7 +40,7 @@ features = generate_haar_features(24, 8000, seed=42)
 # 训练路径：compute_feature_matrix
 train_feats = compute_feature_matrix(window[np.newaxis, ...], features)[0]
 
-# 检测路径：values_at on integral image
+# 检测路径：在积分图上调用 values_at
 integral = compute_integral_image(window.astype(np.uint8))
 detect_feats = np.array([f.values_at(integral, np.array([0]), np.array([0]))[0] for f in features])
 
@@ -62,7 +62,7 @@ print("="*60)
 from src.cascade import bind_cascade_feature_indices
 bind_cascade_feature_indices(cascade, features)
 
-# 生成一些随机纹理 patches 作为负样本
+# 生成一些随机纹理 patch 作为负样本
 neg_windows = []
 for _ in range(500):
     patch = np.random.randint(0, 256, (24, 24), dtype=np.uint8).astype(np.float32)
@@ -91,7 +91,7 @@ print("="*60)
 
 img = cv2.imread("data/test_lfw/images/Abba_Eban_0001.jpg", cv2.IMREAD_GRAYSCALE)
 if img is not None:
-    # 随机采样 200 个 24x24 patches
+    # 随机采样 200 个 24x24 patch
     real_patches = []
     h, w = img.shape
     for _ in range(200):

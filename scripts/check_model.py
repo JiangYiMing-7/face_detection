@@ -1,4 +1,4 @@
-"""Print cascade stage counts and thresholds for selected JSON models."""
+"""打印指定 JSON 模型的 cascade 级数、弱分类器数量和阈值。"""
 
 import json
 for mname in ["custom_cascade_v1_no_hnm.json", "custom_cascade_v3_hnm.json"]:

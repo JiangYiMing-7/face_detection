@@ -1,4 +1,4 @@
-"""Cascade classifier container and JSON persistence helpers."""
+"""Cascade 分类器容器及 JSON 保存/加载工具。"""
 
 from __future__ import annotations
 

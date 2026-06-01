@@ -1,4 +1,4 @@
-"""Haar-like feature definitions, generation, computation, and visualization."""
+"""Haar-like 特征的定义、生成、计算和可视化工具。"""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Non-maximum suppression and bounding-box overlap helpers."""
+"""非极大值抑制和检测框重叠度计算工具。"""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def non_max_suppression(boxes: list[tuple], threshold: float = 0.3) -> list[tupl
         return []
 
     def score(box: tuple) -> float:
-        """Prefer explicit detection score; otherwise use box area as fallback."""
+        """优先使用显式检测分数，否则退回到检测框面积。"""
         if len(box) >= 5:
             return float(box[4])
         return float(box[2] * box[3])

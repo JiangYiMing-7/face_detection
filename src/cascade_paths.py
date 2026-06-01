@@ -1,4 +1,4 @@
-"""Helpers for locating OpenCV Haar cascade XML files across environments."""
+"""跨环境定位 OpenCV Haar cascade XML 文件的辅助函数。"""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import cv2
 
 
 def haarcascade_dir() -> Path:
-    """Find OpenCV's Haar cascade directory across pip and conda builds."""
+    """在 pip、conda 等不同安装方式下查找 OpenCV Haar cascade 目录。"""
     data = getattr(cv2, "data", None)
     if data is not None and getattr(data, "haarcascades", None):
         candidate = Path(data.haarcascades)
@@ -44,7 +44,7 @@ def haarcascade_dir() -> Path:
 
 
 def haarcascade_path(filename: str) -> str:
-    """Return an absolute path to a named OpenCV Haar cascade XML file."""
+    """返回指定 OpenCV Haar cascade XML 文件的绝对路径。"""
     path = haarcascade_dir() / filename
     if not path.exists():
         raise RuntimeError(f"OpenCV Haar cascade file not found: {path}")

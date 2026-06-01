@@ -1,4 +1,4 @@
-"""Interactive single-detector face-detection demo with optional OpenCV controls."""
+"""带 OpenCV 调参控件的单检测器交互式人脸检测演示。"""
 
 from __future__ import annotations
 
@@ -20,19 +20,19 @@ CONTROL_WINDOW = "Controls"
 
 def parse_args() -> argparse.Namespace:
     """解析交互式演示脚本的命令行参数。"""
-    parser = argparse.ArgumentParser(description="Real-time face detection with OpenCV or a custom cascade.")
-    parser.add_argument("--source", default="0", help="Camera index such as 0, or a video/image path. Default: 0")
-    parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv", help="Detector backend.")
-    parser.add_argument("--model", default="models/custom_cascade.json", help="Custom cascade model path.")
-    parser.add_argument("--scale-factor", type=float, default=None, help="Image pyramid scale factor.")
-    parser.add_argument("--min-neighbors", type=int, default=4, help="OpenCV Haar minNeighbors. Default: 4")
-    parser.add_argument("--min-size", type=int, default=30, help="Minimum face size in pixels. Default: 30")
-    parser.add_argument("--window-step", type=int, default=4, help="Custom detector sliding-window step. Default: 4")
-    parser.add_argument("--nms-threshold", type=float, default=0.3, help="Custom detector NMS IoU threshold. Default: 0.3")
-    parser.add_argument("--equalize", action="store_true", help="Apply histogram equalization before detection.")
-    parser.add_argument("--no-display", action="store_true", help="Save results without opening OpenCV windows.")
-    parser.add_argument("--width", type=int, default=960, help="Camera frame width. Default: 960")
-    parser.add_argument("--height", type=int, default=540, help="Camera frame height. Default: 540")
+    parser = argparse.ArgumentParser(description="使用 OpenCV 或自训练 cascade 进行实时人脸检测。")
+    parser.add_argument("--source", default="0", help="摄像头编号（如 0），或视频/图片路径。默认：0")
+    parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv", help="检测器后端。")
+    parser.add_argument("--model", default="models/custom_cascade.json", help="自训练 cascade 模型路径。")
+    parser.add_argument("--scale-factor", type=float, default=None, help="图像金字塔缩放因子。")
+    parser.add_argument("--min-neighbors", type=int, default=4, help="OpenCV Haar minNeighbors。默认：4")
+    parser.add_argument("--min-size", type=int, default=30, help="最小人脸尺寸（像素）。默认：30")
+    parser.add_argument("--window-step", type=int, default=4, help="自实现检测器滑窗步长。默认：4")
+    parser.add_argument("--nms-threshold", type=float, default=0.3, help="自实现检测器 NMS IoU 阈值。默认：0.3")
+    parser.add_argument("--equalize", action="store_true", help="检测前启用直方图均衡化。")
+    parser.add_argument("--no-display", action="store_true", help="不打开 OpenCV 窗口，只保存结果。")
+    parser.add_argument("--width", type=int, default=960, help="摄像头帧宽度。默认：960")
+    parser.add_argument("--height", type=int, default=540, help="摄像头帧高度。默认：540")
     return parser.parse_args()
 
 

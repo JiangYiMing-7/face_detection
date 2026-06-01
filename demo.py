@@ -55,7 +55,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--score-threshold", type=float, default=5.0,
                    help="累积分数阈值（v3建议5.0，v6建议0）")
     p.add_argument("--opencv-gate", action="store_true",
-                   help="Use OpenCV baseline only as an optional debug gate for custom boxes.")
+                   help="仅把 OpenCV 基线作为自实现检测框的可选调试门控。")
     return p.parse_args()
 
 
@@ -107,7 +107,7 @@ class BoxSmoother:
 
 
 class TrackingBoxSmoother:
-    """Temporal smoothing for multiple face boxes."""
+    """多目标人脸框的时间平滑器。"""
 
     def __init__(self, alpha: float = 0.65, max_lost: int = 2, max_tracks: int = 8):
         """初始化多目标轨迹平滑器。"""
