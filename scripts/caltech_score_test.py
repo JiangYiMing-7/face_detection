@@ -1,16 +1,16 @@
 """在已整理的 Caltech 测试集上扫描自实现检测器的分数阈值。"""
 
-import sys, time
-sys.path.insert(0, ".")
+import time
 import cv2
 from pathlib import Path
+from project_paths import project_path
 from src.detectors import create_detector
 from src.annotations import load_annotations
 from src.metrics import match_detections, summarize_counts
 
-det = create_detector("custom", "models/custom_cascade_v3_hnm.json")
-ann = load_annotations("data/test/caltech/annotations.json")
-IMAGE_DIR = Path("data/test/caltech/images")
+det = create_detector("custom", project_path("models/custom_cascade_v3_hnm.json"))
+ann = load_annotations(project_path("data/test/caltech/annotations.json"))
+IMAGE_DIR = project_path("data/test/caltech/images")
 image_paths = sorted(p for p in IMAGE_DIR.rglob("*") if p.suffix.lower() in {".jpg", ".png"})
 
 for score_thresh, min_size in [(12, 120), (15, 120), (20, 120), (25, 120), (30, 120)]:

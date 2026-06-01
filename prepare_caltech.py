@@ -12,15 +12,15 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import shutil
 from pathlib import Path
 
 import scipy.io
 
 
-CALTECH_ROOT = Path(
-    r"D:\aaa大三下作业\计算机视觉\face_detection\data\caltech-101\caltech-101"
-)
+ROOT = Path(__file__).resolve().parent
+CALTECH_ROOT = Path(os.environ.get("CALTECH_ROOT", ROOT / "data" / "caltech-101" / "caltech-101"))
 
 # (图片目录名, 标注目录名, 输出文件前缀)
 CATEGORIES = [

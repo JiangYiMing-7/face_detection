@@ -1,18 +1,18 @@
 """快速诊断：在 Caltech faces_0001.jpg 上测试检测效果"""
-import sys
-sys.path.insert(0, ".")
 import cv2
 import json
+from project_paths import project_path
 from src.detectors import create_detector
 
-img_path = "data/test/caltech/images/faces_0001.jpg"
-img = cv2.imread(img_path)
+img_path = project_path("data/test/caltech/images/faces_0001.jpg")
+img = cv2.imread(str(img_path))
 print("Image shape:", img.shape)
 
-ann = json.load(open("data/test/caltech/annotations.json"))
+with project_path("data/test/caltech/annotations.json").open(encoding="utf-8") as handle:
+    ann = json.load(handle)
 print("GT box:", ann.get("faces_0001.jpg"))
 
-det = create_detector("custom", "models/custom_cascade_v1_no_hnm.json")
+det = create_detector("custom", project_path("models/custom_cascade_v1_no_hnm.json"))
 
 # 用宽松参数
 gray, boxes = det.detect(img, {

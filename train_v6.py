@@ -16,6 +16,13 @@ from src.haar_features import compute_feature_matrix, generate_haar_features, re
 
 
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+
+def project_path(path: str | Path) -> Path:
+    """Resolve relative CLI paths from the repository root."""
+    candidate = Path(path)
+    return candidate if candidate.is_absolute() else PROJECT_ROOT / candidate
 
 
 def parse_stage_sizes(raw: str) -> list[int]:
@@ -251,7 +258,7 @@ def choose_stage_threshold(
 
 def save_training_log(rows: list[dict], output_model: Path) -> None:
     """保存每级训练指标，供后续报告画图和误差分析使用。"""
-    log_dir = Path("results/logs")
+    log_dir = PROJECT_ROOT / "results" / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_path = log_dir / "custom_training_log.csv"
     with log_path.open("w", newline="", encoding="utf-8") as handle:
@@ -263,7 +270,7 @@ def save_training_log(rows: list[dict], output_model: Path) -> None:
 
 def save_top_features(cascade: CascadeClassifier, output_dir: str | Path = "results/features") -> None:
     """保存每一级权重较大的 Haar 特征可视化图，方便报告展示。"""
-    directory = Path(output_dir)
+    directory = project_path(output_dir)
     directory.mkdir(parents=True, exist_ok=True)
     rank = 1
     for stage_index, stage in enumerate(cascade.stages, start=1):
@@ -280,6 +287,9 @@ def save_top_features(cascade: CascadeClassifier, output_dir: str | Path = "resu
 def main() -> None:
     """训练简化 Cascade：每一级训练后收集 hard negatives 供下一级使用。"""
     args = parse_args()
+    args.positive_dir = project_path(args.positive_dir)
+    args.negative_dir = project_path(args.negative_dir)
+    args.output = project_path(args.output)
     start_time = time.perf_counter()
     rng = np.random.default_rng(args.seed)
 

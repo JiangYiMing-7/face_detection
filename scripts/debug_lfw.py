@@ -1,20 +1,20 @@
 """调试LFW评估：看看检测到的框和GT框的IoU"""
-import sys
-sys.path.insert(0, ".")
 import cv2
 import json
+from project_paths import project_path
 from src.detectors import create_detector
 from src.nms import intersection_over_union
 
-img_path = "data/test_lfw/images/Abba_Eban_0001.jpg"
-img = cv2.imread(img_path)
+img_path = project_path("data/test_lfw/images/Abba_Eban_0001.jpg")
+img = cv2.imread(str(img_path))
 print("Image shape:", img.shape)
 
-ann = json.load(open("data/test_lfw/annotations.json"))
+with project_path("data/test_lfw/annotations.json").open(encoding="utf-8") as handle:
+    ann = json.load(handle)
 gt = ann.get("Abba_Eban_0001.jpg")
 print("GT box:", gt)
 
-det = create_detector("custom", "models/custom_cascade_v3_hnm.json")
+det = create_detector("custom", project_path("models/custom_cascade_v3_hnm.json"))
 
 gray, boxes = det.detect(img, {
     "scale_factor": 1.2,

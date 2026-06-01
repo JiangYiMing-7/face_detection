@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import json
+import os
 import random
 import shutil
 import sys
@@ -34,7 +35,7 @@ if sys.platform == "win32":
     sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 # ──────────────────────────────────────────────────────────
-ROOT      = Path(__file__).parent
+ROOT      = Path(__file__).resolve().parent
 TRAIN_POS = ROOT / "data/train/positives"
 TRAIN_NEG = ROOT / "data/train/negatives"
 TEST_IMGS = ROOT / "data/test/images"
@@ -51,7 +52,7 @@ MAX_POSITIVES    = 3000   # 训练正样本数量上限（LFW + WIDER FACE 各�
 MAX_TEST_IMAGES  = 200    # 测试集图片数量上限
 TARGET_NEGATIVES = 300    # 目标负样本数量
 
-LFW_TAR   = Path(r"D:\aaa大三下作业\计算机视觉\face_detection\data\lfw_aug.tar")
+LFW_TAR   = Path(os.environ.get("LFW_TAR", ROOT / "data" / "lfw_aug.tar"))
 LFW_QUOTA = MAX_POSITIVES // 2   # LFW 占一半
 WF_QUOTA  = MAX_POSITIVES - LFW_QUOTA  # WIDER FACE 大脸占一半
 

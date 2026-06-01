@@ -16,6 +16,13 @@ from src.detectors import create_detector
 
 WINDOW_NAME = "Viola-Jones Face Detection"
 CONTROL_WINDOW = "Controls"
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+
+def project_path(path: str | Path) -> Path:
+    """Resolve relative CLI paths from the repository root."""
+    candidate = Path(path)
+    return candidate if candidate.is_absolute() else PROJECT_ROOT / candidate
 
 
 def parse_args() -> argparse.Namespace:
@@ -55,7 +62,7 @@ def open_source(source: str, width: int, height: int):
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
         return cap, False
 
-    path = Path(source)
+    path = project_path(source)
     if not path.exists():
         raise FileNotFoundError(f"Input source does not exist: {source}")
 
@@ -70,7 +77,7 @@ def open_source(source: str, width: int, height: int):
 
 def ensure_output_dirs():
     """创建截图、人脸裁剪和运行日志输出目录。"""
-    root = Path("results")
+    root = PROJECT_ROOT / "results"
     screenshots = root / "screenshots"
     faces = root / "faces"
     logs = root / "logs"
@@ -248,7 +255,7 @@ def main() -> None:
     screenshots_dir, faces_dir, logs_dir = ensure_output_dirs()
 
     print(f"[INFO] Loading detector: {args.detector}", flush=True)
-    detector = create_detector(args.detector, args.model)
+    detector = create_detector(args.detector, project_path(args.model))
     eye_classifier = load_eye_classifier()
 
     print(f"[INFO] Opening source: {args.source}", flush=True)

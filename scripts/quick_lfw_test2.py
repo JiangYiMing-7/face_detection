@@ -1,15 +1,15 @@
 """测试大 min_size 的效果"""
-import sys, time
-sys.path.insert(0, ".")
+import time
 import cv2
 from pathlib import Path
+from project_paths import project_path
 from src.detectors import create_detector
 from src.annotations import load_annotations
 from src.metrics import match_detections, summarize_counts
 
-det = create_detector("custom", "models/custom_cascade_v3_hnm.json")
-ann = load_annotations("data/test_lfw/annotations.json")
-IMAGE_DIR = Path("data/test_lfw/images")
+det = create_detector("custom", project_path("models/custom_cascade_v3_hnm.json"))
+ann = load_annotations(project_path("data/test_lfw/annotations.json"))
+IMAGE_DIR = project_path("data/test_lfw/images")
 image_paths = sorted(p for p in IMAGE_DIR.rglob("*") if p.suffix.lower() in {".jpg", ".png"})[:200]
 
 for min_size, step in [(60, 4), (60, 8), (80, 4), (80, 8), (100, 4)]:

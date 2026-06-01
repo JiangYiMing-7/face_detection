@@ -16,15 +16,22 @@ from src.metrics import match_detections, summarize_counts
 
 
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
+PROJECT_ROOT = Path(__file__).resolve().parent
+
+
+def project_path(path: str | Path) -> Path:
+    """Resolve relative CLI paths from the repository root."""
+    candidate = Path(path)
+    return candidate if candidate.is_absolute() else PROJECT_ROOT / candidate
 
 
 def parse_args() -> argparse.Namespace:
     """解析评估脚本参数，包括检测器、数据集路径和后处理阈值。"""
     parser = argparse.ArgumentParser(description="在带标注图片上评估 OpenCV 或自实现人脸检测器。")
     parser.add_argument("--detector", choices=["opencv", "custom"], default="opencv")
-    parser.add_argument("--model", default="models/custom_cascade_v3_hnm.json", help="自训练 cascade 模型路径。")
-    parser.add_argument("--image-dir", default="data/test/images")
-    parser.add_argument("--annotations", default="data/test/annotations.json")
+    parser.add_argument("--model", default="models/custom_cascade_v6_full_1.json", help="自训练 cascade 模型路径。")
+    parser.add_argument("--image-dir", default="data/test_lfw/images")
+    parser.add_argument("--annotations", default="data/test_lfw/annotations.json")
     parser.add_argument("--output-dir", default="results/eval")
     parser.add_argument("--iou-threshold", type=float, default=0.5)
     parser.add_argument("--scale-factor", type=float, default=1.2)
@@ -57,10 +64,10 @@ def draw_boxes(image, boxes, color, label: str) -> None:
 def main() -> None:
     """批量评估检测器，并输出逐图指标、汇总指标和可视化图片。"""
     args = parse_args()
-    image_dir = Path(args.image_dir)
-    annotations = load_annotations(args.annotations)
-    detector = create_detector(args.detector, args.model)
-    output_dir = Path(args.output_dir)
+    image_dir = project_path(args.image_dir)
+    annotations = load_annotations(project_path(args.annotations))
+    detector = create_detector(args.detector, project_path(args.model))
+    output_dir = project_path(args.output_dir)
     visualization_dir = output_dir / "visualizations"
     visualization_dir.mkdir(parents=True, exist_ok=True)
 

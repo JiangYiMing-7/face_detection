@@ -1,8 +1,11 @@
 """打印指定 JSON 模型的 cascade 级数、弱分类器数量和阈值。"""
 
 import json
+from project_paths import project_path
+
 for mname in ["custom_cascade_v1_no_hnm.json", "custom_cascade_v3_hnm.json"]:
-    m = json.load(open(f"models/{mname}"))
+    with project_path(f"models/{mname}").open(encoding="utf-8") as handle:
+        m = json.load(handle)
     stages = m.get("stages", [])
     print(f"\n=== {mname} ===")
     print(f"window_size: {m.get('window_size')}")

@@ -4,16 +4,17 @@
 2. 验证训练路径 vs 检测路径的特征值是否一致
 3. 定位 FP 过高的根因
 """
-import sys, json
-sys.path.insert(0, ".")
+from pathlib import Path
 import numpy as np
 import cv2
 from src.cascade import CascadeClassifier
 from src.haar_features import generate_haar_features, compute_feature_matrix
 from src.integral_image import compute_integral_image
 
+ROOT = Path(__file__).resolve().parent
+
 # ===== 1. 加载模型，检查每一级的阈值和 alpha 范围 =====
-cascade = CascadeClassifier.load("models/custom_cascade_v3_hnm.json")
+cascade = CascadeClassifier.load(ROOT / "models" / "custom_cascade_v3_hnm.json")
 print("="*60)
 print("1. 模型结构分析")
 print("="*60)
@@ -89,7 +90,7 @@ print("\n" + "="*60)
 print("4. 真实图像 patch 上的逐级 FP 率")
 print("="*60)
 
-img = cv2.imread("data/test_lfw/images/Abba_Eban_0001.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread(str(ROOT / "data" / "test_lfw" / "images" / "Abba_Eban_0001.jpg"), cv2.IMREAD_GRAYSCALE)
 if img is not None:
     # 随机采样 200 个 24x24 patch
     real_patches = []

@@ -1,59 +1,95 @@
 # Viola-Jones 实时人脸检测系统
 
-计算机视觉课程大作业：从零实现 Viola-Jones 人脸检测算法，并与 OpenCV 预训练 Haar Cascade 进行对比。
+计算机视觉课程大作业：从零实现 Viola-Jones 人脸检测流程，并与 OpenCV 预训练 Haar Cascade 进行对比。项目不使用深度学习框架，核心算法由 Python + NumPy 实现。
 
-## 核心成果
+## 当前可复现结果
 
-| 检测器 | LFW F1 | 说明 |
-|--------|--------|------|
-| OpenCV Haar Cascade | 0.980 | 预训练基线，Recall=0.960 |
-| **自实现 v6.1** | **1.000** | LFW 常规操作点零漏检、零误报 |
+仓库已包含 LFW 测试子集、标注文件和训练好的 JSON 级联模型。使用 `models/custom_cascade_v6_full_1.json` 在 `data/test_lfw/` 上评估时，当前复现结果如下：
 
-## 项目结构
+| 检测器 | 测试集 | Precision | Recall | F1 |
+| --- | --- | ---: | ---: | ---: |
+| OpenCV Haar Cascade | LFW 200 张 | 1.0000 | 0.9600 | 0.9796 |
+| 自实现 v6.1 | LFW 200 张 | 1.0000 | 1.0000 | 1.0000 |
 
-```
-custom/
-├── train.py                  # 训练脚本（v3 及以前，1000正样本）
-├── train_v6.py               # v6/v6.1 训练脚本（3000正样本、x7增强）
-├── evaluate.py               # 定量评估（支持 --clahe）
-├── demo.py                   # 实时摄像头演示（双屏对比）
-├── prepare_data.py           # 从 WIDER FACE 裁切训练正样本
-├── audit_cascade.py          # 级联模型审计（分析每级 FPR/TPR）
-├── main.py                   # 早期演示入口（单检测器）
-├── src/
-│   ├── integral_image.py     # 积分图（含平方积分图）
-│   ├── haar_features.py      # Haar-like 特征定义与枚举
-│   ├── adaboost.py           # AdaBoost 训练与弱/强分类器
-│   ├── cascade.py            # 级联分类器（JSON 序列化）
-│   ├── sliding_window.py     # 多尺度滑窗 + _cluster_weighted_merge
-│   ├── nms.py                # NMS + 包含框过滤
-│   ├── detectors.py          # 统一接口（OpenCV / Custom + CLAHE）
-│   ├── metrics.py            # P/R/F1 评估指标
-│   └── annotations.py        # 标注文件解析
-├── models/                   # 训练好的级联模型（JSON）
-│   ├── custom_cascade_v3_hnm.json      # v3: 8级/230弱分类器
-│   ├── custom_cascade_v6_full.json     # v6: 10级/525弱 (x4增强)
-│   └── custom_cascade_v6_full_1.json   # v6.1: 10级/525弱 (x7增强) ★
-├── data/
-│   ├── train/negatives/      # 负样本图片（300张）
-│   └── test_lfw/             # LFW 测试集（200张 + annotations）
-└── results/                  # 评估结果、可视化
-```
+自实现 v6.1 常规操作点使用 `min_size=100`、`min_neighbors=5`。严格操作点可把 `min_size` 调到 60，用于观察更多候选窗口下的误检抑制能力。
 
 ## 环境配置
+
+建议使用 Python 3.10+。如果本机已有课程环境，例如 conda 的 `ml` 环境，可以先激活：
+
+```bash
+conda activate ml
+```
+
+也可以新建环境后安装依赖：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-依赖：Python 3.10+、numpy、opencv-python（不使用任何深度学习框架）。
+主要依赖：
 
-## 快速开始
+- `numpy`：核心矩阵计算
+- `opencv-python`：图像读写、摄像头、OpenCV 基线
+- `matplotlib`：训练曲线和报告图表脚本
+- `scipy`：Caltech `.mat` 标注整理脚本
 
-### 1. 定量评估
+## 最短复现
+
+在项目根目录执行：
 
 ```bash
-# 在 LFW 上评估 v6.1 模型（F1=1.000）
+python -m unittest discover -s tests
+python evaluate.py --detector custom --output-dir results/eval_reproduce
+```
+
+`evaluate.py` 的默认复现配置为：
+
+- 模型：`models/custom_cascade_v6_full_1.json`
+- 图片：`data/test_lfw/images`
+- 标注：`data/test_lfw/annotations.json`
+- 输出：`results/eval`
+
+如果当前 shell 的 `python` 没有安装 OpenCV，请先进入包含 `opencv-python` 的环境再运行。
+
+## 项目结构
+
+```text
+face_detection_baseline/
+├── src/                         # 核心算法与检测器封装
+│   ├── integral_image.py         # 积分图、平方积分图
+│   ├── haar_features.py          # Haar-like 特征定义、枚举、可视化
+│   ├── adaboost.py               # AdaBoost 弱/强分类器训练
+│   ├── cascade.py                # 级联分类器与 JSON 序列化
+│   ├── sliding_window.py         # 多尺度滑窗检测与聚类合并
+│   ├── nms.py                    # IoU、NMS、包含框过滤
+│   ├── detectors.py              # OpenCV / Custom 统一检测接口
+│   ├── metrics.py                # Precision、Recall、F1 评估
+│   └── annotations.py            # 标注 JSON 读取
+├── train.py                      # v1-v3 风格训练入口
+├── train_v6.py                   # v6/v6.1 训练入口，支持 x7 增强
+├── evaluate.py                   # 批量评估入口
+├── demo.py                       # 双屏实时摄像头演示
+├── main.py                       # 单检测器交互式演示入口
+├── prepare_data.py               # WIDER FACE/LFW 数据准备
+├── prepare_caltech.py            # Caltech-101 Faces 数据整理
+├── audit_cascade.py              # 级联模型审计脚本
+├── scripts/                      # 辅助调参、调试、检查脚本
+├── tests/                        # 核心数学模块冒烟测试
+├── models/                       # 已训练 JSON 模型
+├── data/
+│   ├── test_lfw/                 # 已包含的 LFW 复现测试集
+│   └── train/                    # 训练数据目录，positive 需自行准备
+├── results/                      # 本地评估输出和运行结果
+├── 训练数据与可视化/               # 训练日志、图表、模型备份
+└── 报告.md                       # 课程结题报告
+```
+
+## 定量评估
+
+复现自实现 v6.1：
+
+```bash
 python evaluate.py --detector custom \
   --model models/custom_cascade_v6_full_1.json \
   --image-dir data/test_lfw/images \
@@ -61,23 +97,20 @@ python evaluate.py --detector custom \
   --min-neighbors 5 \
   --min-size 100 \
   --output-dir results/eval_lfw_v61
+```
 
-# 评估 v3 模型
-python evaluate.py --detector custom \
-  --model models/custom_cascade_v3_hnm.json \
-  --image-dir data/test_lfw/images \
-  --annotations data/test_lfw/annotations.json \
-  --min-neighbors 5 \
-  --min-size 100 \
-  --output-dir results/eval_lfw_v3
+复现 OpenCV 基线：
 
-# OpenCV 基线
+```bash
 python evaluate.py --detector opencv \
   --image-dir data/test_lfw/images \
   --annotations data/test_lfw/annotations.json \
   --output-dir results/eval_lfw_opencv
+```
 
-# 更严格的 LFW 操作点（更多小窗口，更考验误检抑制）
+严格操作点：
+
+```bash
 python evaluate.py --detector custom \
   --model models/custom_cascade_v6_full_1.json \
   --image-dir data/test_lfw/images \
@@ -87,13 +120,23 @@ python evaluate.py --detector custom \
   --output-dir results/eval_lfw_strict_v61
 ```
 
-### 2. 实时摄像头演示
+评估输出包括：
+
+- `metrics.csv`：逐图 TP/FP/FN、Precision、Recall、F1、耗时
+- `summary.json`：整体汇总指标
+- `visualizations/`：预测框和真实框可视化
+
+## 实时演示
+
+双屏摄像头对比，左侧 OpenCV，右侧自实现模型：
 
 ```bash
-# 双屏对比（左: OpenCV, 右: 自实现）
 python demo.py --model models/custom_cascade_v6_full_1.json
+```
 
-# 常用参数
+常用调参示例：
+
+```bash
 python demo.py \
   --model models/custom_cascade_v3_hnm.json \
   --scale-factor 1.2 \
@@ -103,17 +146,29 @@ python demo.py \
   --score-threshold 5.0
 ```
 
-**快捷键**：`q` 退出 | `r` 录制 | 空格 暂停
+快捷键：
 
-### 3. 训练模型
+- `q`：退出
+- 空格：暂停/继续
+- `r`：开始/停止录制，默认保存到 `results/demo_output.mp4`
 
-训练数据需要自行准备（正样本从 WIDER FACE 裁切，负样本为非人脸图片）：
+## 训练模型
+
+仓库包含负样本和已训练模型，但正样本目录默认只保留占位文件。完整训练前需要先准备正样本。
 
 ```bash
-# 准备正样本
 python prepare_data.py
+```
 
-# 训练 v3 级别模型
+如果已有本地 LFW 增强包，不要把绝对路径写进代码，可通过环境变量传入：
+
+```bash
+LFW_TAR=/path/to/lfw_aug.tar python prepare_data.py
+```
+
+训练 v3 风格模型：
+
+```bash
 python train.py \
   --positive-dir data/train/positives \
   --negative-dir data/train/negatives \
@@ -122,8 +177,11 @@ python train.py \
   --max-positives 1000 \
   --stage-sizes 5,10,15,20,30,40,50,60 \
   --augment
+```
 
-# 训练 v6.1 级别模型（需要 3000+ 正样本）
+训练 v6/v6.1 风格模型：
+
+```bash
 python train_v6.py \
   --positive-dir data/train/positives \
   --negative-dir data/train/negatives \
@@ -134,39 +192,64 @@ python train_v6.py \
   --augment
 ```
 
-## 算法亮点
+训练会输出模型到 `models/`，日志到 `results/logs/`，代表性 Haar 特征图到 `results/features/`。
 
-### 自定义后处理：_cluster_weighted_merge
+## Caltech 测试集整理
 
-替代 `cv2.groupRectangles`，使用三条件聚类解决跨尺度检测框合并：
-- IoU >= 0.18（传统重叠条件）
-- 包含度 >= 0.65（小框被大框覆盖）
-- 中心距离近 + 尺寸相近（放宽几何约束）
+如果需要复现 Caltech-101 Faces 测试，可先准备 Caltech-101 数据，并通过参数或环境变量指定路径：
 
-### 多目标跟踪：TrackingBoxSmoother
+```bash
+CALTECH_ROOT=/path/to/caltech-101 python prepare_caltech.py
+```
 
-实时演示中的多人脸独立跟踪，支持：
-- IoU + 距离组合匹配评分
-- 自适应平滑系数（静止 alpha=0.65，移动 alpha=0.9）
-- 最多同时跟踪 8 张脸
+整理后可评估：
 
-### CLAHE 预处理
+```bash
+python evaluate.py --detector custom \
+  --model models/custom_cascade_v1_no_hnm.json \
+  --image-dir data/test/caltech/images \
+  --annotations data/test/caltech/annotations.json \
+  --output-dir results/eval_caltech_custom \
+  --min-size 30 \
+  --window-step 4 \
+  --scale-factor 1.2
+```
 
-可选的自适应直方图均衡化。实验中它对较弱的 v3 模型有帮助，但对 v6/v6.1 会放大背景纹理并增加误报；最终 v6.1 默认关闭 CLAHE。
+## 路径与可移植性
 
-### x7 数据增强（v6.1）
+项目入口脚本已按项目根目录解析默认相对路径，避免依赖本机绝对路径。提交或打包时需要保留这些目录：
 
-翻转 + 亮度扰动 + gamma 校正 + 高斯噪声，3000 正样本扩充到 21000。
+- `src/`
+- `models/`
+- `data/test_lfw/`
+- `tests/`
+- `requirements.txt`
+- `README.md`
+- `报告.md`
 
-## 模型对比
+本地数据集路径通过命令行参数或环境变量传入，不应写死到代码中。
 
-| 模型 | 正样本 | 增强 | Haar 特征候选 | 级联 | LFW 常规 F1 | LFW 严格 F1 |
-|------|--------|------|----------------|------|-------------|-------------|
-| v3 | 1000 | x4 | 20000 | 8级/230弱 | 1.000 | 0.919 |
-| v6 | 3000 | x4 | 20000 | 10级/525弱 | 1.000 | 0.964 |
-| **v6.1** | **3000** | **x7** | **20000** | **10级/525弱** | **1.000** | **0.959** |
+## 辅助脚本
 
-说明：LFW 常规操作点使用 `min_size=100, min_neighbors=5`；严格操作点使用 `min_size=60, min_neighbors=5`，候选窗口更多，更能暴露误检抑制能力。
+`scripts/` 下是实验和调参用脚本：
+
+- `check_model.py`：查看模型 stage 数量、弱分类器数量和阈值
+- `quick_lfw_test.py` / `quick_lfw_test2.py`：快速扫描 LFW 后处理参数
+- `tune_threshold.py`：扫描 `score_threshold`
+- `debug_lfw.py` / `debug_caltech.py`：单图诊断 IoU 和检测框
+- `inspect_mat.py`：查看 Caltech `.mat` 标注内容
+
+这些脚本会通过 `scripts/project_paths.py` 从项目根目录解析数据和模型路径。
+
+## 核心实现特点
+
+- 积分图实现 Haar 特征 O(1) 矩形求和
+- AdaBoost 训练弱分类器并组合成强分类器
+- 多级 Cascade 快速拒绝非人脸窗口
+- Hard Negative Mining 提高背景抑制能力
+- `_cluster_weighted_merge` 合并跨尺度候选框
+- `TrackingBoxSmoother` 提升实时演示中多人脸框稳定性
+- 可选 CLAHE 预处理用于对比实验
 
 ## 参考文献
 

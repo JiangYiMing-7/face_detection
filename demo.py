@@ -26,10 +26,16 @@ if sys.platform == "win32":
     sys.stdout = _io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
     sys.stderr = _io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
-ROOT = Path(__file__).parent
+ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
 from src.detectors import create_detector
+
+
+def project_path(path: str | Path) -> Path:
+    """Resolve relative CLI paths from the repository root."""
+    candidate = Path(path)
+    return candidate if candidate.is_absolute() else ROOT / candidate
 
 
 def parse_args() -> argparse.Namespace:
@@ -254,15 +260,16 @@ def put_title(frame: np.ndarray, title: str, color: tuple) -> None:
 def main() -> None:
     """运行 OpenCV 与自实现 cascade 的双屏实时对比演示。"""
     args = parse_args()
+    output_path = project_path(args.output)
 
     # ── 加载检测器 ──────────────────────────────────────────
     print("[INFO] 加载 OpenCV 检测器...")
     opencv_det = create_detector("opencv")
 
-    model_path = Path(args.model)
+    model_path = project_path(args.model)
     if not model_path.exists():
         # 自动寻找可用模型
-        candidates = list(Path("models").glob("*.json"))
+        candidates = list((ROOT / "models").glob("*.json"))
         if candidates:
             model_path = sorted(candidates)[-1]
             print(f"[WARN] 指定模型不存在，改用 {model_path}")
@@ -303,7 +310,7 @@ def main() -> None:
     print("[INFO] 按 r 录制 | 空格 暂停 | q 退出")
 
     # ── 录制设置 ─────────────────────────────────────────────
-    Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     fourcc = cv2.VideoWriter_fourcc(*"mp4v")
     out_w = actual_w * 2  # 左右拼接
     writer: cv2.VideoWriter | None = None
@@ -324,16 +331,16 @@ def main() -> None:
             print("[INFO]", "暂停" if paused else "继续")
         if key == ord("r"):
             if not recording:
-                writer = cv2.VideoWriter(args.output, fourcc, 20,
+                writer = cv2.VideoWriter(str(output_path), fourcc, 20,
                                          (out_w, actual_h))
                 recording = True
-                print(f"[INFO] 开始录制 -> {args.output}")
+                print(f"[INFO] 开始录制 -> {output_path}")
             else:
                 if writer:
                     writer.release()
                     writer = None
                 recording = False
-                print(f"[INFO] 录制停止，保存至 {args.output}")
+                print(f"[INFO] 录制停止，保存至 {output_path}")
 
         if paused:
             if frame_cache is not None:
