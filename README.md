@@ -128,23 +128,31 @@ python evaluate.py --detector custom \
 
 ## 实时演示
 
-双屏摄像头对比，左侧 OpenCV，右侧自实现模型：
+双屏摄像头对比，左侧 OpenCV，右侧自实现模型。`demo.py` 的默认参数已设为在 LFW 上实测的最优操作点（v6.1 模型，P/R/F1=1.000），直接运行即可：
 
 ```bash
-python demo.py --model models/custom_cascade_v6_full_1.json
+python demo.py
 ```
 
-常用调参示例：
+等价于显式写全默认值：
 
 ```bash
 python demo.py \
-  --model models/custom_cascade_v3_hnm.json \
-  --scale-factor 1.2 \
-  --min-size 40 \
-  --window-step 6 \
-  --min-neighbors-custom 3 \
-  --score-threshold 5.0
+  --model models/custom_cascade_v6_full_1.json \
+  --scale-factor 1.1 \
+  --min-size 80 \
+  --window-step 4 \
+  --nms-threshold 0.3 \
+  --min-neighbors-custom 6 \
+  --score-threshold 0
 ```
+
+调参说明：
+
+- `--scale-factor 1.1`：尺度步进越细，检测框越贴合、误检越少（实测 1.2 精确率会从 1.0 降到 0.94）。
+- `--min-size 80`：近景大脸用 80 最快；调小可检测更远的小脸，但误检会显著增多。
+- `--min-neighbors-custom 6`：低于 6 误检明显增加。
+- `--pad-bottom`/`--pad-x`/`--pad-top`：调节检测框扩展比例（默认框住整张脸）；`--smooth-alpha` 调节时间平滑强度。
 
 快捷键：
 

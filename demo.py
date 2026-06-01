@@ -41,25 +41,26 @@ def project_path(path: str | Path) -> Path:
 def parse_args() -> argparse.Namespace:
     """解析双屏实时演示所需的摄像头、模型和后处理参数。"""
     p = argparse.ArgumentParser(description="实时人脸检测演示（双屏对比）")
-    p.add_argument("--model", default="models/custom_cascade_v3_hnm.json",
-                   help="自实现级联模型路径")
+    p.add_argument("--model", default="models/custom_cascade_v6_full_1.json",
+                   help="自实现级联模型路径（默认 v6.1，效果最好）")
     p.add_argument("--camera", type=int, default=0, help="摄像头编号")
-    p.add_argument("--scale-factor", type=float, default=1.2)
-    p.add_argument("--min-size", type=int, default=40,
-                   help="最小检测窗口（越大越快）")
-    p.add_argument("--window-step", type=int, default=6,
+    p.add_argument("--scale-factor", type=float, default=1.1,
+                   help="尺度步进（越小越细、框越准；1.1 实测精确率最高）")
+    p.add_argument("--min-size", type=int, default=80,
+                   help="最小检测窗口（越大越快；近景大脸用80，远处小脸需调小但误检激增）")
+    p.add_argument("--window-step", type=int, default=4,
                    help="滑窗步长（越大越快，4=精细 8=实时）")
-    p.add_argument("--nms-threshold", type=float, default=0.45)
+    p.add_argument("--nms-threshold", type=float, default=0.3)
     p.add_argument("--variance-normalize", action="store_true",
                    help="开启方差归一化（默认关闭；模型在原始像素值上训练）")
     p.add_argument("--output", default="results/demo_output.mp4",
                    help="录制输出路径")
     p.add_argument("--width", type=int, default=640, help="摄像头宽度")
     p.add_argument("--height", type=int, default=480, help="摄像头高度")
-    p.add_argument("--min-neighbors-custom", type=int, default=3,
-                   help="自实现检测器 min_neighbors（v3建议3，v6建议10）")
-    p.add_argument("--score-threshold", type=float, default=5.0,
-                   help="累积分数阈值（v3建议5.0，v6建议0）")
+    p.add_argument("--min-neighbors-custom", type=int, default=6,
+                   help="自实现检测器 min_neighbors（v6.1建议6，过低误检增多）")
+    p.add_argument("--score-threshold", type=float, default=0.0,
+                   help="累积分数阈值（v6.1建议0，由 min_neighbors 控制误检）")
     p.add_argument("--opencv-gate", action="store_true",
                    help="仅把 OpenCV 基线作为自实现检测框的可选调试门控。")
     p.add_argument("--pad-bottom", type=float, default=0.28,
